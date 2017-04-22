@@ -1,0 +1,11 @@
+Simple Terminal - Patched
+=========================
+
+This is my personally patched version of st
+
+ - Solarized theme because yolo
+ - Inconsolata font because <3
+ - Disabling bold fonts because I wanted to try it
+ - Patching in DEL functionality (even though it doesn't quite work yet)
+
+I will probably include a working patch for DEL at some point if I can be bothered
