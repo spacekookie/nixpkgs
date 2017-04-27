@@ -1,0 +1,10 @@
+whatthecommit lock
+==================
+
+I use i3-lock which can display a message while the screen is locked. This is everything you need to do the same on your system. It consists of three parts
+
+1) Simple bash script
+2) Simple ruby script that sources quotes
+3) Quotes collection
+
+Feel free to replace my quotes collection which is slightly curated to remove duplicates 

@@ -1,0 +1,3 @@
+#!/bin/bash
+MESSAGE=$(sort -R ~/.config/messages  | head -n 1)
+i3lock-fancy -t "$MESSAGE"
