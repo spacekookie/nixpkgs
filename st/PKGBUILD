@@ -7,24 +7,26 @@ pkgrel=1
 pkgdesc='A simple virtual terminal emulator for X. Patched with some stuff'
 arch=('i686' 'x86_64')
 license=('MIT')
-depends=('libxext' 'libxft', 'inconsolata')
+depends=('libxext' 'libxft' 'ttf-inconsolata')
 makedepends=('ncurses')
 url="http://st.suckless.org"
 source=(http://dl.suckless.org/st/$appname-$pkgver.tar.gz
         http://st.suckless.org/patches/st-no_bold_colors-20160727-308bfbf.diff
-        http://st.suckless.org/patches/st-solarized-dark-20160727-308bfbf.diff
+        https://raw.githubusercontent.com/spacekookie/stuff/mistress/st/st-solarized-alpha-20160727-308bfbf.diff
         http://st.suckless.org/patches/st-delkey-20160727-308bfbf.diff)
 
 sha256sums=('f7870d906ccc988926eef2cc98950a99cc78725b685e934c422c03c1234e6000'
         '2e8cdbeaaa79ed067ffcfdcf4c5f09fb5c8c984906cde97226d4dd219dda39dc'
-        '4782f52c4147a352579586c1b066f9fd1da934e580cbd3b78943f058394d9883'
+        '7e4e14db08e934800e846e459b65d1268f1324600b199be23c7874d57b56ae9d'
         '1e4ae17686b4ac17e570953b2564e3d9d71d5a55a068d7cac53e3cd8569e66e0')
 
 prepare() {
   cd "$srcdir/$appname-$pkgver"
   patch -i "$srcdir/st-no_bold_colors-20160727-308bfbf.diff"
-  patch -i "$srcdir/st-solarized-dark-20160727-308bfbf.diff"
+  # patch -i "$srcdir/st-solarized-dark-20160727-308bfbf.diff"
   patch -i "$srcdir/st-delkey-20160727-308bfbf.diff"
+  patch -i "$srcdir/st-solarized-alpha-20160727-308bfbf.diff"
+  # patch -i "$srcdir/st-alpha-20160727-308bfbf.diff"
   cp config.def.h config.h
   sed -i 's/Liberation Mono:pixelsize=12:antialias=true:autohint=true/Inconsolata:pixelsize=16:antialias=true:autohint=true/' config.h 
 }
