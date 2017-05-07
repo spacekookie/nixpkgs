@@ -3,9 +3,10 @@ Simple Terminal - Patched
 
 This is my personally patched version of st
 
- - Solarized theme because yolo
+ - Hand written diff that makes it pretty (;-; I seem to like pain or something)
+   - Enables alpha
+   - Enables solarized-dark theme
  - Inconsolata font because <3
- - Disabling bold fonts because I wanted to try it
- - Patching in DEL functionality (even though it doesn't quite work yet)
+ - Disabling bold fonts because I DON'T WANT TO BE YELLED AT!
+ - Patching in DEL functionality
 
-I will probably include a working patch for DEL at some point if I can be bothered
