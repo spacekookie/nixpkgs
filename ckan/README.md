@@ -8,4 +8,6 @@ You can use this package by either cloning the entire repo or  using SVN!
 
 ```console
 svn checkout https://github.com/spacekookie/stuff/trunk/ckan/
+cd ckan/
+makepkg -si
 ```
