@@ -1,0 +1,55 @@
+# Kookie's not so amazing kakrc #
+# ============================= #
+
+
+## Imports from other files
+source ~/.config/kak/wiki.kak
+source ~/.config/kak/sudo-write.kak
+source ~/.config/kak/langs.kak
+source ~/.config/kak/skimming.kak
+
+## Start the language server integration
+eval %sh{kak-lsp --kakoune -s $kak_session}
+
+## Smarter tab handling
+hook global InsertChar \t %{ try %{
+  execute-keys -draft "h<a-h><a-k>\A\h+\z<ret><a-;>;%opt{indentwidth}@"
+}}
+
+hook global InsertDelete ' ' %{ try %{
+  execute-keys -draft 'h<a-h><a-k>\A\h+\z<ret>i<space><esc><lt>'
+}}
+
+## Some generic cool options
+add-highlighter global/ number-lines -hlcursor
+add-highlighter global/ wrap -word
+set-option global ui_options ncurses_assistant=cat #meow!
+
+alias global cc comment-line
+alias global cx comment-block
+
+def -hidden -params 1 extend-line-down %{
+  exec "<a-:>%arg{1}X"
+}
+def -hidden -params 1 extend-line-up %{
+  exec "<a-:><a-;>%arg{1}K<a-x>"
+}
+
+## Syntax switching like you're used from `subl` :)
+define-command \
+  -docstring "Set the current buffer to a different syntax
+
+<language>: The lange you want to highlight" \
+  -params 1 ss %{
+    set-option buffer filetype %arg{1}
+}
+
+## Select all occurances of something
+map global user a '*%s<ret>' -docstring 'select all'
+
+## Useful utilities
+define-command mkdirp %{
+  nop %sh{mkdir -p "$(dirname "$kak_buffile")"}
+}
+
+colorscheme tomorrow-night
