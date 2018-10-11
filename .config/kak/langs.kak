@@ -13,7 +13,7 @@ hook global WinSetOption filetype=rust %{
 }
 
 hook global WinSetOption filetype=rust %{
-  set window makecmd 'cargo check'
+  set window makecmd 'cargo build'
 }
 
 ## yaml uses 2 tab indent
