@@ -1,0 +1,7 @@
+alias void="void /home/spacekookie/.local/void.db"
+alias c="cargo"
+alias g="git"
+alias debug="env RUST_BACKTRACE=1"
+alias nb="man"
+alias woman="man"
+alias acetrace="ranger"
