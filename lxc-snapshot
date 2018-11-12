@@ -1,0 +1,50 @@
+#!/usr/bin/fish
+
+#################################################
+#
+# A small helper script that creates LXC 
+#   snapshots for containers for you, deleting 
+#   the old ones that existed before.
+#
+# Be aware that this will only ever keep
+#   the latest snapshot of a container
+#
+#################################################
+
+# See if we got an argument
+if test (count $argv) -lt 1
+  echo "Usage: lxc-backup <container>"
+  exit 255
+end
+
+# See if the container is valid
+lxc info $argv[1] ^ /dev/null > /dev/null
+if not test $status -eq 0  
+  set_color --bold red
+  echo "Provided container '$argv[1]' doesn't exist!"
+  set_color normal
+  
+  exit 1
+end
+
+echo "Found container!"
+
+# Delete the "current" snapshot and make a new "current" snapshot
+echo "Deleting old 'current'..."
+set_color --bold red
+lxc delete $argv[1]/current
+set_color normal
+
+echo "Creating new 'current' snapshot..."
+set_color --bold red
+lxc snapshot $argv[1] current
+set_color normal
+
+echo " "
+
+# Output some stuff here?
+set_color --bold red
+printf "Container '$argv[1]' "
+set_color normal
+
+lxc info $argv[1] | grep "Snapshots" -A 2

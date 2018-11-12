@@ -1,0 +1,78 @@
+# Kookie's not so amazing kakrc #
+# ============================= #
+
+
+## Imports from other files
+source ~/.config/kak/wiki.kak
+source ~/.config/kak/sudo-write.kak
+source ~/.config/kak/langs.kak
+source ~/.config/kak/skimming.kak
+source ~/.config/kak/highlights.kak
+
+## Start the language server integration
+eval %sh{kak-lsp --kakoune -s $kak_session}
+lsp-auto-hover-enable
+
+## Smarter tab handling
+hook global InsertChar \t %{ try %{
+  execute-keys -draft "h<a-h><a-k>\A\h+\z<ret><a-;>;%opt{indentwidth}@"
+}}
+
+hook global InsertDelete ' ' %{ try %{
+  execute-keys -draft 'h<a-h><a-k>\A\h+\z<ret>i<space><esc><lt>'
+}}
+
+## Some generic cool options
+add-highlighter global/ number-lines -hlcursor
+add-highlighter global/ wrap -word
+set-option global ui_options ncurses_assistant=cat #meow!
+map global user 'w' %{:echo %sh{wc -w <lt><lt><lt> "${kak_selection}"}<ret>}
+set global scrolloff 5,1
+
+alias global cc comment-line
+alias global cx comment-block
+
+def -hidden -params 1 extend-line-down %{
+  exec "<a-:>%arg{1}X"
+}
+def -hidden -params 1 extend-line-up %{
+  exec "<a-:><a-;>%arg{1}K<a-x>"
+}
+
+## Syntax switching like you're used from `subl` :)
+define-command \
+  -docstring "Set the current buffer to a different syntax
+
+<language>: The lange you want to highlight" \
+  -params 1 ss %{
+    set-option buffer filetype %arg{1}
+}
+
+## Like `edit` but with a new kakoune session
+define-command \
+  -docstring "Spawn a new kakoune window in a terminal to edit a file
+
+<file>: The file to open in a new window" \
+  -params 1 edit-split %{
+    info %sh{ echo kitty sh -c kak -c "${kak_session}" %arg{1}}
+}
+
+## Select all occurances of something
+map global user a '*%s<ret>' -docstring 'select all'
+
+## Integrate into the system clipboard
+hook global NormalKey y|d|c %{
+  nop %sh{
+    printf %s "$kak_main_reg_dquote" | xsel --input --clipboard
+  }
+}
+
+## Useful utilities
+define-command mkdirp \
+  -docstring "Create new directories" \
+  -file-completion \
+  -params 1 %{
+  nop %sh{mkdir -p $1}
+}
+
+colorscheme tomorrow-night

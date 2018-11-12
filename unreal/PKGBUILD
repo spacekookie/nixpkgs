@@ -1,0 +1,39 @@
+# Mantainer: spacekookie
+pkgname=unrealengine4
+pkgver=4.11.0_release
+_pkgver=4.11.0-release
+pkgrel=1
+pkgdesc="Unreal Engine 4 is a complete suite of game development tools made by Epic Games"
+arch=('x86_64')
+url="http://www.unrealtournament.com/"
+license=('custom')
+depends=(cmake dos2unix clang35 mono)
+provides=(unrealengine4)
+
+prepare() {
+    git clone -b $_pkgver --depth 1 https://github.com/EpicGames/UnrealEngine.git $pkgname-$pkgver 
+    mkdir bin/
+    ln -s /bin/ld.bfd bin/ld.gold
+    export PATH=bin/bin:$PATH
+}
+
+build() {
+    cd "$pkgname-$pkgver"
+
+    bash Setup.sh
+    bash GenerateProjectFiles.sh
+
+    echo "ABOUT TO COMPILE. THIS WILL TAKE A VERY VERY LONG TIME!"
+    make UE4Editor UE4Game UnrealPak CrashReportClient ShaderCompileWorker UnrealLightmass
+}
+
+check() {
+    cd "$pkgname-$pkgver"
+    make -k check
+}
+
+package() {
+    install -D -m644 icon.png "$pkgdir/opt/$pkgname/editor_icon.png"
+    cp -r $srcdir/$pkgname-$pkgver/* $pkgdir/opt/$pkgname/
+    ln -s $pkgdir/opt/$pkgname/Engine/Binaries/Linux/UE4Editor $pkgdir/usr/local/bin/ue4editor
+}

@@ -1,0 +1,6 @@
+Unreal Engine
+=============
+
+Installing the unreal engine on linux is a bit of a pain in the ass. This utility script makes that easier.
+
+Also includes a PKGBUILD file to install the unreal development tools as a package on Arch Linux.

@@ -1,0 +1,50 @@
+# Maintainer: Katharina Fey <kookie@spacekookie.de>
+
+pkgname=ckan
+pkgver=1.22.3
+pkgrel=1
+pkgdesc='All you need to find, install, and manage mods for Kerbal Space Program (ksp)'
+arch=('any')
+url="https://github.com/KSP-CKAN/CKAN/"
+license=('MIT')
+depends=('curl' 'mono')
+conflicts=('ckan-git')
+
+source=("${pkgname}-v${pkgver}.exe::https://github.com/KSP-CKAN/CKAN/releases/download/v${pkgver}/ckan.exe"
+		"icon.png")
+sha256sums=('8b02bb62f9786a9f3a764594d4a3297c73bc5d476099afcf48a4fa14b56a1204'
+			'9a8b57e4a84e57fd4f787ffca57d3a9eb72051ad5e9c55acc9036da8d3199375')
+
+package() {
+  mkdir -p "$pkgdir/usr/bin/"
+  mkdir -p "$pkgdir/opt/ckan/"
+  mkdir -p "$pkgdir/usr/share/pixmaps/"
+  mkdir -p "$pkgdir/usr/share/applications/"
+
+  cp "$srcdir/$pkgname-v$pkgver.exe" "$pkgdir/opt/ckan/ckan.exe"
+  
+  # Create a wrapper script that runs mono
+  cat > "$pkgdir/usr/bin/ckan" << EOF
+#!/bin/bash
+mono /opt/ckan/ckan.exe
+EOF
+
+  # Copy the logo over 
+  cp "$srcdir/icon.png" "$pkgdir/usr/share/pixmaps/ckan.png"
+
+  # Create a desktop file
+  cat > "$pkgdir/usr/share/applications/ckan.desktop" << EOF
+[Desktop Entry]
+Name=CKAN
+GenericName=Kerbal Space Program mod package manager
+Comment=Manage KSP mods as packages and check for incompatibilities
+Exec=/usr/bin/ckan
+Icon=/usr/share/pixmaps/ckan.png
+Terminal=false
+Type=Application
+StartupNotify=false
+Categories=Games;
+EOF
+
+  chmod 755 "$pkgdir/usr/bin/ckan"
+}
