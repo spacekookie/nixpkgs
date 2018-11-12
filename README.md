@@ -1,5 +1,10 @@
-# stuff
+# Kookie's computer thingamajiggies
 
-Things that are usually not useful to anyone except myself (sometimes not even that)
-Foooo
-Fooo
+This repository contains all my commonly shared configuation files,
+using `home-manager` as a configuration tool.
+This uses `nix`.
+
+The base configuration can be found in `home.nix`,
+and all components are being handled by their own files.
+The actual configurations are then located in folders,
+so that they're easier to index and sort.
