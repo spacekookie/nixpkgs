@@ -1,4 +1,4 @@
-function history_previous_command
+function __history_previous_command
   switch (commandline -t)
   case "!"
     commandline -t $history[1]; commandline -f repaint

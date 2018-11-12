@@ -3,28 +3,39 @@
 {
   home.packages = [
     pkgs.fish
+    (pkgs.iosevka.override {
+      design = [ "v-at-long"
+                 "v-l-italic"
+                 "v-asterisk-low"
+                 "v-zero-dotted"
+                 "v-dollar-open"
+                 "v-numbersign-slanted" ];
+      upright = [ "v-i-hooky" ];
+      set = "iosevka-ss09-term";
+    })
   ];
 
-  # programs.fish.enable = true;
-  # programs.fish.shellInit = import ./fish.nix;
-  xdg.configFile."fish/config.fish".text = import ./fish.nix;
-  xdg.configFile."fish/functions/__history_previous_command.fish".text = ''
-    function __history_previous_command
-    switch (commandline -t)
-        case "!"
-            commandline -t $history[1]; commandline -f repaint
-        case "*"
-            commandline -i !
-        end
-    end
-  '';
+  fonts.fontconfig.enableProfileFonts = true;
+    
+  programs.fish.enable = true;
+  programs.fish.shellInit = import ./fish.nix;
 
-  xdg.configFile."fish/functions/fish_user_key_bindings.fish".text = ''
-    bind ! __history_previous_command
-  '';
+  programs.kitty.enable = true;
+  programs.kitty.config = import ./kitty.nix;
+
+  xsession.windowManager.i3.enable = true;
+  xsession.windowManager.i3.config = null;
+  xsession.windowManager.i3.extraConfig = import ./i3.nix;
+
+  xdg.configFile."i3/dynamic-tagging/" = {
+    recursive = true;
+    executable = true;
+    source = ./i3/dynamic-tagging;
+  };
 
   programs.home-manager = {
     enable = true;
-    path = https://github.com/rycee/home-manager/archive/master.tar.gz;
+    path = "/home/spacekookie/Personal/clones/home-manager";
+    # https://github.com/rycee/home-manager/archive/master.tar.gz;
   };
 }
