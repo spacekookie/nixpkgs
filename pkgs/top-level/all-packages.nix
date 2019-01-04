@@ -4742,6 +4742,8 @@ in
 
   pitivi = callPackage ../applications/video/pitivi { };
 
+  pixelfed = callPackage ../servers/web-apps/pixelfed { };
+
   pulumi-bin = callPackage ../tools/admin/pulumi { };
 
   p0f = callPackage ../tools/security/p0f { };
