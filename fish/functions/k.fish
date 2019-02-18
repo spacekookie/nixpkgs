@@ -1,6 +1,6 @@
 # Spawn a kak daemon in a project directory and fuzzy open a file
 function k --description='Open kakoune via skim'
-    set server_name (basename (pwd))
+    set server_name (basename (pwd) | sed 's/\./-/g')
     set socket_file (kak -l | grep $server_name)
 
     if test -z $socket_file
