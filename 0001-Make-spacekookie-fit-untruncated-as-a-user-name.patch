@@ -1,0 +1,35 @@
+From 371ad009c6ddfd040ff47fe07bd0d42b9b18e75b Mon Sep 17 00:00:00 2001
+From: Alyssa Ross <hi@alyssa.is>
+Date: Sat, 16 Feb 2019 21:39:00 +0000
+Subject: [PATCH] Make "spacekookie" fit untruncated as a user name
+
+---
+ Process.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/Process.c b/Process.c
+index 54c41af..41d30a3 100644
+--- a/Process.c
++++ b/Process.c
+@@ -480,13 +480,13 @@ void Process_writeField(Process* this, RichString* str, ProcessField field) {
+       if (Process_getuid != (int) this->st_uid)
+          attr = CRT_colors[PROCESS_SHADOW];
+       if (this->user) {
+-         xSnprintf(buffer, n, "%-9s ", this->user);
++         xSnprintf(buffer, n, "%-11s ", this->user);
+       } else {
+-         xSnprintf(buffer, n, "%-9d ", this->st_uid);
++         xSnprintf(buffer, n, "%-11d ", this->st_uid);
+       }
+-      if (buffer[9] != '\0') {
+-         buffer[9] = ' ';
+-         buffer[10] = '\0';
++      if (buffer[11] != '\0') {
++         buffer[11] = ' ';
++         buffer[12] = '\0';
+       }
+       break;
+    }
+-- 
+2.19.2
+

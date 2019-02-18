@@ -3,6 +3,9 @@
 {
   home.packages = [
     pkgs.fish
+    (pkgs.htop.overrideAttrs ({ patches ? [], ... }: {
+      patches = patches ++ [ ./0001-Make-spacekookie-fit-untruncated-as-a-user-name.patch ];
+    }))
     (pkgs.iosevka.override {
       design = [ "v-at-long"
                  "v-l-italic"
