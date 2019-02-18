@@ -16,6 +16,8 @@
       upright = [ "v-i-hooky" ];
       set = "iosevka-ss09-term";
     })
+    pkgs.neovim
+    pkgs.fzf
   ];
 
   fonts.fontconfig.enableProfileFonts = true;

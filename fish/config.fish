@@ -21,8 +21,8 @@ fenv source /home/spacekookie/.nix-profile/etc/profile.d/nix.sh
 # Make git use kakoune
 set -x EDITOR kak
 
-# Some useful aliases
-# source ~/.config/fish/alias.fish
+# Setting up bindings!
+bind \cr __fancy_history
 
 # tuuuuuuuurbofish!
 set fish_greeting 'Welcome to the '(set_color FF66CC)'::<>' (set_color normal)'...'
