@@ -134,7 +134,7 @@ exec_always --no-startup-id "killall -q compton; compton --config ~/.config/i3/c
 # Make CAPSLOCK into ESC because it's 2018
 exec_always --no-startup-id "xmodmap -e 'clear lock' #disable caps lock switch"
 exec_always --no-startup-id "xmodmap -e 'keysym Caps_Lock = Escape' #set caps_lock as escape"
-exec_always --no-startup-id "setxkbmap -layout crumbs -option caps:escape"
+exec_always --no-startup-id "setxkbmap -layout crumbs intl -option caps:escape"
 
 # Set a wallpaper
 exec --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/robot-wallpaper-pack-1080p-hd.jpg
@@ -145,17 +145,16 @@ exec redshift-gtk
 # Start the nm-tray thingy
 exec nm-tray
 
-# Start bluetooth daemon
-exec --no-startup-id sudo blueman-applet
-
 # Syncthing is kinda important!
 exec "syncthing-gtk -m -s"
 
 bar {
     status_command i3status
     position bottom
+    bindsym button4 nop
+    bindsym button5 nop
     workspace_buttons yes
-        colors  {
+    colors  {
         background #0F0F0F
         statusline #D5D5D5
     }

@@ -38,6 +38,10 @@
     source = ./i3/dynamic-tagging;
   };
 
+  xdg.configFile."i3/compton.conf" = {
+    source = ./i3/compton.conf;
+  };
+
   programs.home-manager = {
     enable = true;
     path = "/home/spacekookie/Personal/clones/home-manager";
