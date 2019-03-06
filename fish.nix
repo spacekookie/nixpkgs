@@ -22,4 +22,8 @@ ${builtins.readFile ./fish/functions/fish_user_key_bindings.fish }
 ${builtins.readFile ./fish/functions/__history_previous_command_arguments.fish }
 ${builtins.readFile ./fish/functions/__history_previous_command.fish }
 ${builtins.readFile ./fish/functions/__skim_cd.fish }
+${builtins.readFile ./fish/functions/__kakoune.fish }
+${builtins.readFile ./fish/functions/search.fish }
+
+${builtins.readFile ./fish/binds.fish}
 ''
