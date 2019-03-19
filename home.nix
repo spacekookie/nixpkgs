@@ -1,12 +1,20 @@
 { lib, pkgs, ... }:
 
 {
-  home.packages = [
-    pkgs.fish
-    (pkgs.htop.overrideAttrs ({ patches ? [], ... }: {
+  home.packages = with pkgs; [
+  # (kakoune.overrideAttrs ({ src, makeFlags, ... }: {
+  #     src = fetchFromGitHub {
+  #       repo = "kakoune";
+  #       owner = "mawww";
+  #       rev = "89cd68d8aff07792b03a0affc19dbb01f036f554";
+  #       sha256 = "0nc71jl2bpzzx3daqhfjgmmf3fh9k3gj1y1j536xnybd78vvgxq1";
+  #      };
+  #     enableParallelBuilding = true;
+  #   }))
+    (htop.overrideAttrs ({ patches ? [], ... }: {
       patches = patches ++ [ ./0001-Make-spacekookie-fit-untruncated-as-a-user-name.patch ];
     }))
-    (pkgs.iosevka.override {
+    (iosevka.override {
       design = [ "v-at-long"
                  "v-l-italic"
                  "v-asterisk-low"
@@ -16,14 +24,19 @@
       upright = [ "v-i-hooky" ];
       set = "iosevka-ss09-term";
     })
-    pkgs.neovim
-    pkgs.fzf
+    neovim
+    fish
+    fzf
   ];
+
+  home.sessionVariables = {
+    LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
+  };
 
   fonts.fontconfig.enableProfileFonts = true;
     
   programs.fish.enable = true;
-  programs.fish.shellInit = import ./fish.nix;
+  programs.fish.shellInit = import ./fish.nix { inherit pkgs; };
 
   programs.kitty.enable = true;
   programs.kitty.config = import ./kitty.nix;

@@ -1,12 +1,8 @@
 
+{ pkgs }:
 ''
-${builtins.readFile ./fish/functions/fenv.apply.fish }
-${builtins.readFile ./fish/functions/fenv.fish }
-${builtins.readFile ./fish/functions/fenv.main.fish }
-${builtins.readFile ./fish/functions/fenv.parse.after.fish }
-${builtins.readFile ./fish/functions/fenv.parse.before.fish }
-${builtins.readFile ./fish/functions/fenv.parse.diff.fish }
-${builtins.readFile ./fish/functions/fenv.parse.divider.fish }
+set fish_function_path ${pkgs.fish-foreign-env}/share/fish-foreign-env/functions $fish_function_path
+
 
 ${builtins.readFile ./fish/functions/__fancy_history.fish }
 

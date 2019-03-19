@@ -2,6 +2,7 @@
 set -gx PATH $HOME/.cargo/bin $PATH
 set -gx PATH $HOME/.local/bin $PATH
 set -gx PATH /usr/sbin $PATH
+set -gx GRAAL_HOME ~/.local/share/graalvm/
 
 # gnome-keyring insists on setting this to itself, even if ssh support is disabled
 set -x SSH_AUTH_SOCK "/run/user/1000/gnupg/S.gpg-agent.ssh"
