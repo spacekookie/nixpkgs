@@ -105,7 +105,7 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'GOD THINK OF ALL THE WORKSPACES YOU ARE ABOUT TO KILL!! 😱😨' -b 'I HATE MY LIFE' 'i3-msg exit'"
 
-focus_follows_mouse no
+focus_follows_mouse yes
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
