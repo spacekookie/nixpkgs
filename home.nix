@@ -45,6 +45,7 @@ in
       iosevka
     ] ++ (with pkgs; [
       neovim
+      any-nix-shell
       fish
       fzf
     ]);

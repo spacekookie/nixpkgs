@@ -17,10 +17,11 @@ set -gx PATH $NPM_PACKAGES/bin $PATH
 set -x LC_ALL en_GB.utf8
  
 # Include the nix environment
-# if not test $NIX_PATH
 fenv source /home/spacekookie/.nix-profile/etc/profile.d/nix.sh
-# end
 
+# Better nix-shell support!
+any-nix-shell fish --info-right | source
+ 
 # Make git use kakoune
 set -x EDITOR kak
 
