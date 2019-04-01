@@ -8,10 +8,9 @@ alias hm="home-manager"
 
 alias c="cargo"
 alias g="git"
-
+alias e="emacs"
+alias em="emacs"
 alias skcd="cd (sk ~)"
-alias vim="nvim"
-alias v="vim"
 
 # Jokes
 alias nb="man"

@@ -10,6 +10,22 @@ let
        };
       enableParallelBuilding = true;
     }));
+  emacs = (with pkgs; (emacsPackagesNgFor emacs26-nox).emacsWithPackages (epkgs:
+  (with epkgs; with epkgs.melpaStablePackages;
+    [
+      (runCommand "init.el" {} ''
+          mkdir -p $out/share/emacs/site-lisp
+           cp ${./emacs/init.el} $out/share/emacs/site-lisp/default.el
+      '')
+      color-theme-sanityinc-tomorrow
+      magit
+      markdown-mode
+      multiple-cursors
+      nix-mode
+      ox-reveal
+      rust-mode
+      sublimity
+    ])));
   htop = (pkgs.htop.overrideAttrs ({ src, patches ? [], nativeBuildInputs ? [], ... }: {
       src = pkgs.fetchFromGitHub {
         repo = "htop";
@@ -20,6 +36,7 @@ let
       nativeBuildInputs = nativeBuildInputs ++ [ pkgs.autoreconfHook ];
       patches = patches ++ [ ./0001-Make-spacekookie-fit-untruncated-as-a-user-name.patch ];
     }));
+  git = (pkgs.git.override { svnSupport = true; sendEmailSupport = true;  });
   iosevka = (pkgs.iosevka.override {
       design = [ "v-at-long"
                  "v-l-italic"
@@ -43,6 +60,7 @@ in
       kakoune
       htop
       iosevka
+      emacs
     ] ++ (with pkgs; [
       neovim
       any-nix-shell
