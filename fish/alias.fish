@@ -9,7 +9,7 @@ alias hm="home-manager"
 alias c="cargo"
 alias g="git"
 alias e="emacs"
-alias em="emacs"
+alias em="emacs (fzf --height=15 --reverse)"
 alias skcd="cd (sk ~)"
 
 # Jokes

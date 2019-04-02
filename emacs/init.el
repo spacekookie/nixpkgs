@@ -4,6 +4,8 @@
 
 (require 'sublimity-scroll)
 (sublimity-mode 1)
+(setq sublimity-scroll-weight 5
+      sublimity-scroll-drift-length 2)
 
 ;; Multiple cursors keybindings
 (global-set-key (kbd "C-c m") 'mc/edit-lines)
