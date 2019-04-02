@@ -22,8 +22,8 @@ fenv source /home/spacekookie/.nix-profile/etc/profile.d/nix.sh
 # Better nix-shell support!
 any-nix-shell fish --info-right | source
  
-# Make git use kakoune
-set -x EDITOR kak
+# Make git use emacs
+set -x EDITOR emacs
 
 # tuuuuuuuurbofish!
 set fish_greeting 'Welcome to the '(set_color FF66CC)'::<>' (set_color normal)'...'
