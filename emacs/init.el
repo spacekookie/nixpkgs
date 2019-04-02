@@ -2,10 +2,13 @@
 (setq display-line-numbers-width-start 1)
 (global-display-line-numbers-mode 1)
 
-(require 'sublimity-scroll)
-(sublimity-mode 1)
-(setq sublimity-scroll-weight 5
-      sublimity-scroll-drift-length 2)
+;; Setup better (less jumpy) scroll characteristics
+(setq scroll-margin 1
+      scroll-conservatively 0
+      scroll-up-aggressively 0.01
+      scroll-down-aggressively 0.01)
+(setq-default scroll-up-aggressively 0.01
+              scroll-down-aggressively 0.01)
 
 ;; Multiple cursors keybindings
 (global-set-key (kbd "C-c m") 'mc/edit-lines)
