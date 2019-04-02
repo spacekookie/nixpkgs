@@ -10,6 +10,10 @@
 (setq-default scroll-up-aggressively 0.01
               scroll-down-aggressively 0.01)
 
+;; Mouse scroll without moving cursors
+(global-set-key "\M-n"  (lambda () (interactive) (scroll-up   1)) )
+(global-set-key "\M-p"  (lambda () (interactive) (scroll-down 1)) )
+
 ;; Multiple cursors keybindings
 (global-set-key (kbd "C-c m") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
