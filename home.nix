@@ -78,12 +78,12 @@ in
     fonts.fontconfig.enableProfileFonts = true;
 
     programs.fish.enable = true;
-    programs.fish.shellInit = import ./fish.nix { inherit pkgs; };
+    programs.fish.shellInit = import ./fish { inherit pkgs; };
 
     programs.kitty.enable = true;
-    programs.kitty.config = import ./kitty.nix;
+    programs.kitty.config = import ./kitty;
 
-    xsession.windowManager.i3 = import ./i3.nix { inherit i3; };
+    xsession.windowManager.i3 = import ./i3 { inherit i3; };
 
     xdg.configFile."i3/dynamic-tagging/" = {
       recursive = true;
@@ -98,6 +98,5 @@ in
     programs.home-manager = {
       enable = true;
       path = "/home/spacekookie/Personal/clones/home-manager";
-      # https://github.com/rycee/home-manager/archive/master.tar.gz;
     };
   }
