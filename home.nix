@@ -18,13 +18,15 @@ let
            cp ${./emacs/init.el} $out/share/emacs/site-lisp/default.el
       '')
       color-theme-sanityinc-tomorrow
+      company-lsp
+      lsp-mode
+      lsp-ui
       magit
       markdown-mode
       multiple-cursors
       nix-mode
       ox-reveal
       rust-mode
-      sublimity
     ])));
   htop = (pkgs.htop.overrideAttrs ({ src, patches ? [], nativeBuildInputs ? [], ... }: {
       src = pkgs.fetchFromGitHub {
