@@ -1,3 +1,8 @@
+;; Kookie's emacs config
+;;
+;; Focused on ergonomics and multi-cursor editing features
+;; Only used with ncurses UI
+
 (setq display-line-numbers-grow-only 1)
 (setq display-line-numbers-width-start 1)
 (global-display-line-numbers-mode 1)
@@ -9,7 +14,6 @@
 ;; Some editing niceties
 (delete-selection-mode 1)
 (show-paren-mode 1)
-(save-place-mode 1)
 
 ;; Setup better (less jumpy) scroll characteristics
 (setq scroll-margin 1
@@ -19,7 +23,7 @@
 (setq-default scroll-up-aggressively 0.01
               scroll-down-aggressively 0.01)
 
-;; Mouse scroll without moving cursors
+;; View scroll without moving cursors
 (global-set-key "\M-n"  (lambda () (interactive) (scroll-up   1)) )
 (global-set-key "\M-p"  (lambda () (interactive) (scroll-down 1)) )
 
@@ -27,16 +31,15 @@
 (global-set-key (kbd "C-c RET") 'mc/edit-lines)
 (global-set-key (kbd "C-c [") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-c ]") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-c _") 'mc/mark-all-like-this)
 
-;; Increase startup time by dropping certain debug output
+;; Decrease startup time by dropping certain debug output
 (setf inhibit-startup-screen 1
       inhibit-startup-echo-area-message 1
       inhibit-startup-message 1)
 
-;; Integrate into system clipboard more seemlessly
+;; Weird clipboard stuff I haven't fully understood
 (setf select-enable-clipboard 1
-      select-enable-clipboard 1
       save-interprogram-paste-before-kill 1
       mouse-yank-at-point 1)
 
@@ -46,6 +49,7 @@
 (setf ido-enable-flex-matching 1
       ido-everywhere 1)
 
+;; I like pretty colours!
 (require 'color-theme-sanityinc-tomorrow)
 (color-theme-sanityinc-tomorrow-eighties) 
 (custom-set-variables
