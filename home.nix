@@ -76,19 +76,14 @@ in
     };
 
     fonts.fontconfig.enableProfileFonts = true;
-      
+
     programs.fish.enable = true;
     programs.fish.shellInit = import ./fish.nix { inherit pkgs; };
 
     programs.kitty.enable = true;
     programs.kitty.config = import ./kitty.nix;
 
-    xsession.windowManager.i3 = {
-      enable = true;
-      config = null;
-      extraConfig = import ./i3.nix;
-      package = i3;
-    };
+    xsession.windowManager.i3 = import ./i3.nix { inherit i3; };
 
     xdg.configFile."i3/dynamic-tagging/" = {
       recursive = true;
