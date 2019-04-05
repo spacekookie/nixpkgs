@@ -119,7 +119,6 @@
       } ;
     };
 
-
     bars = [{
       statusCommand = "i3status";
       fonts = [ "iosevka-term-ss09 10" ];
@@ -127,7 +126,7 @@
       #workspace_buttons = true;
       colors = {
         background = "#0F0F0F";
-	statusline = "#D5D5D5";
+        statusline = "#D5D5D5";
       };
       # extraConfig = ''
       #   bindsym button4 nop
