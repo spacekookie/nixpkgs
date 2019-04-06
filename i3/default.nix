@@ -156,5 +156,9 @@
 
     # Syncthing is kinda important!
     exec "syncthing-gtk -m -s"
+
+    # Layout and design settings that should _really_ be in the module
+    default_border pixel 3
+    client.focused #4c7899 #285577 #ffffff #F73E5F #666666
   '';
 }

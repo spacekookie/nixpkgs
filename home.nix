@@ -59,15 +59,20 @@ let
 in
   {
     home.packages = [
-      kakoune
+      emacs
       htop
       iosevka
-      emacs
+      kakoune
     ] ++ (with pkgs; [
-      neovim
       any-nix-shell
       fish
       fzf
+      gajim
+      neomutt
+      python37Packages.python-axolotl # Needed for OMEMO
+      signal-desktop
+      transmission-gtk
+      vscode
     ]);
 
     home.sessionVariables = {
