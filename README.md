@@ -1,10 +1,26 @@
 # Kookie's computer thingamajiggies
 
-This repository contains all my commonly shared configuation files,
-using `home-manager` as a configuration tool.
-This uses `nix`.
+These are all my commonly shared configuration files.
+Some modifications might depend on [kookiepkgs],
+my personal `nix` package repository.
 
-The base configuration can be found in `home.nix`,
-and all components are being handled by their own files.
-The actual configurations are then located in folders,
-so that they're easier to index and sort.
+[kookiepkgs]: https://github.com/spacekookie/kookiepkgs
+
+The configurations are rolled out with [`home-manager`].
+
+[`home-manager`]: https://github.com/rycee/home-manager
+
+---
+
+Most directories will have a `default.nix` file that configures things.
+The exception being `home.nix` which contains all package modifications,
+so that they're all neatly in one place :)
+
+## Contributions
+
+You're very welcome to steal things from this repository
+(note the license though!)
+
+If you use any of this and find a bug, feel free to open a PR.
+I might not merge all of them though, especially if something
+hasn't been a problem for me before.
