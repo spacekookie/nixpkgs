@@ -3,9 +3,16 @@
 ;; Focused on ergonomics and multi-cursor editing features
 ;; Only used with ncurses UI
 
+;; More sane line-number behaviour
 (setq display-line-numbers-grow-only 1)
 (setq display-line-numbers-width-start 1)
 (global-display-line-numbers-mode 1)
+
+;; Spaces are better than tabs
+(setq tab-width 2)
+(setq-default indent-tabs-mode nil)
+(defvaralias 'c-basic-offset 'tab-width)
+(defvaralias 'cperl-indent-level 'tab-width)
 
 ;; Swap/Backup files are annoying AF
 (setq make-backup-files nil)
