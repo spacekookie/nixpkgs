@@ -17,6 +17,9 @@
       # Close individual windows
       "${modifier}+Shift+q" = "kill";
 
+      # Full-screen window
+      "${modifier}+f" = "fullscreen";
+
       # Start software on <this> or <other> workspace
       "${modifier}+d" = "exec dmenu_run";
       "${modifier}+Shift+d" = "exec ~/.config/i3/dynamic-tagging/i3-dtags-new.sh";
