@@ -3,6 +3,9 @@
 ;; Focused on ergonomics and multi-cursor editing features
 ;; Only used with ncurses UI
 
+;; A package loading utility
+(require 'use-package)
+
 ;; More sane line-number behaviour
 (setq display-line-numbers-grow-only 1)
 (setq display-line-numbers-width-start 1)
@@ -56,9 +59,23 @@
 (setf ido-enable-flex-matching 1
       ido-everywhere 1)
 
+(use-package rust-mode
+    :mode "\\.rs\\'"
+    :init
+    (setq rust-format-on-save t))
+(use-package lsp-mode
+    :init
+    (add-hook 'prog-mode-hook 'lsp-mode)
+    :config
+    (use-package lsp-flycheck
+        :ensure f ; comes with lsp-mode
+        :after flycheck))
+(use-package lsp-rust
+    :after lsp-mode)
+
 ;; I like pretty colours!
 (require 'color-theme-sanityinc-tomorrow)
-(color-theme-sanityinc-tomorrow-eighties) 
+(color-theme-sanityinc-tomorrow-eighties)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

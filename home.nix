@@ -1,3 +1,5 @@
+
+
 { lib, pkgs, ... }:
 
 let
@@ -17,16 +19,23 @@ let
           mkdir -p $out/share/emacs/site-lisp
            cp ${./emacs/init.el} $out/share/emacs/site-lisp/default.el
       '')
+      use-package
       color-theme-sanityinc-tomorrow
-      company-lsp
+      company
+      flycheck
+      flycheck-rust
       lsp-mode
+      lsp-rust
       lsp-ui
+      fzf
       magit
       markdown-mode
       multiple-cursors
       nix-mode
       ox-reveal
       rust-mode
+      toml-mode
+      treemacs
     ])));
   htop = (pkgs.htop.overrideAttrs ({ src, patches ? [], nativeBuildInputs ? [], ... }: {
       src = pkgs.fetchFromGitHub {
