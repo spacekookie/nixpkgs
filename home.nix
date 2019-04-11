@@ -1,5 +1,6 @@
 
 
+
 { lib, pkgs, ... }:
 
 let
@@ -15,27 +16,32 @@ let
   emacs = (with pkgs; (emacsPackagesNgFor emacs26-nox).emacsWithPackages (epkgs:
   (with epkgs; with epkgs.melpaStablePackages;
     [
+      # Note: substituteAll
       (runCommand "init.el" {} ''
           mkdir -p $out/share/emacs/site-lisp
            cp ${./emacs/init.el} $out/share/emacs/site-lisp/default.el
       '')
       use-package
       color-theme-sanityinc-tomorrow
+      fzf
       company
       flycheck
-      flycheck-rust
-      lsp-mode
-      lsp-rust
-      lsp-ui
-      fzf
+      ripgrep
       magit
       markdown-mode
       multiple-cursors
       nix-mode
       ox-reveal
+
       rust-mode
-      toml-mode
-      treemacs
+      lsp-rust
+      cargo
+      flycheck-rust
+      eglot
+
+      lsp-mode
+      lsp-ui
+      company-lsp
     ])));
   htop = (pkgs.htop.overrideAttrs ({ src, patches ? [], nativeBuildInputs ? [], ... }: {
       src = pkgs.fetchFromGitHub {

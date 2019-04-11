@@ -3,6 +3,8 @@
 ;; Focused on ergonomics and multi-cursor editing features
 ;; Only used with ncurses UI
 
+
+
 ;; A package loading utility
 (require 'use-package)
 
@@ -59,19 +61,52 @@
 (setf ido-enable-flex-matching 1
       ido-everywhere 1)
 
-(use-package rust-mode
-    :mode "\\.rs\\'"
-    :init
-    (setq rust-format-on-save t))
+(use-package company
+  :diminish company-mode
+  :commands company-mode
+  :init
+    (add-hook 'emacs-lisp-mode-hook #'company-mode)
+  :config
+    (add-to-list 'company-backends #'company-capf)
+    (add-to-list 'company-backends #'company-dabbrev-code)
+    (setf company-active-map (make-sparse-keymap))
+    (bind-keys
+      :map company-active-map
+        ("C-h" . company-select-next)
+        ("C-t" . company-select-previous)
+        ("C-f" . company-complete-selection)
+        ("M-f" . company-complete-common)
+        ("C-g" . company-abort)))
+
 (use-package lsp-mode
-    :init
-    (add-hook 'prog-mode-hook 'lsp-mode)
-    :config
-    (use-package lsp-flycheck
-        :ensure f ; comes with lsp-mode
-        :after flycheck))
-(use-package lsp-rust
-    :after lsp-mode)
+  :commands lsp
+  :config (setq lsp-enable-eldoc nil))
+
+(use-package lsp-ui
+  :init
+  (add-hook 'lsp-mode-hook #'lsp-ui-mode)
+  :config
+  (setq lsp-ui-sideline-enable nil)
+  (setq lsp-ui-doc-enable nil))
+
+(use-package company-lsp
+  :after company
+  :demand
+  :config
+  (push #'company-lsp company-backends))
+
+(use-package rust-mode
+  :config
+  (add-to-list 'rust-mode-hook #'flycheck-mode))
+
+(use-package cargo)
+
+(use-package flycheck-rust
+  :commands flycheck-rust-setup
+  :init
+  (with-eval-after-load "flycheck"
+    (add-to-list 'flycheck-mode-hook #'flycheck-rust-setup)))
+
 
 ;; I like pretty colours!
 (require 'color-theme-sanityinc-tomorrow)
