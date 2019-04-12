@@ -3,8 +3,6 @@
 ;; Focused on ergonomics and multi-cursor editing features
 ;; Only used with ncurses UI
 
-
-
 ;; A package loading utility
 (require 'use-package)
 
@@ -106,7 +104,6 @@
   :init
   (with-eval-after-load "flycheck"
     (add-to-list 'flycheck-mode-hook #'flycheck-rust-setup)))
-
 
 ;; I like pretty colours!
 (require 'color-theme-sanityinc-tomorrow)
