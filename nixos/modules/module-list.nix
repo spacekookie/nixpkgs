@@ -785,6 +785,7 @@
   ./services/web-servers/minio.nix
   ./services/web-servers/nginx/default.nix
   ./services/web-servers/nginx/gitweb.nix
+  ./services/web-servers/nginx/bookstack.nix
   ./services/web-servers/phpfpm/default.nix
   ./services/web-servers/unit/default.nix
   ./services/web-servers/shellinabox.nix
