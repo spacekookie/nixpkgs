@@ -4867,7 +4867,7 @@ in
 
   ola = callPackage ../applications/misc/ola { };
 
-  olive-editor = libsForQt5.callPackage ../applications/video/olive-editor { 
+  olive-editor = libsForQt5.callPackage ../applications/video/olive-editor {
     inherit (darwin.apple_sdk.frameworks) CoreFoundation;
   };
 
@@ -22886,6 +22886,8 @@ in
   brgenml1cupswrapper = callPackage ../misc/cups/drivers/brgenml1cupswrapper {};
 
   brightnessctl = callPackage ../misc/brightnessctl { };
+
+  bookstack = callPackage ../servers/web-apps/bookstack { };
 
   calaos_installer = libsForQt5.callPackage ../misc/calaos/installer {};
 
