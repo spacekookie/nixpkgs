@@ -1,6 +1,3 @@
-
-
-
 { lib, pkgs, ... }:
 
 let
@@ -79,44 +76,59 @@ in
       iosevka
       kakoune
     ] ++ (with pkgs; [
+      tmux
+      gnupg
       any-nix-shell
       fish
       fzf
       gajim
-      neomutt
       python37Packages.python-axolotl # Needed for OMEMO
       signal-desktop
       transmission-gtk
-      vscode
+      yubikey-personalization
+
+      neomutt
+      msmtp
+      isync
+      
+      rustup
+      gcc9
+      gcc9Stdenv
     ]);
 
     home.sessionVariables = {
       LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
-      NIX_PATH = "nixpkgs=/home/spacekookie/.local/nixpkgs";
+      NIX_PATH = "nixpkgs=/home/sys/nixpkgs";
     };
 
-    fonts.fontconfig.enableProfileFonts = true;
+    fonts.fontconfig.enable = true;
 
     programs.fish.enable = true;
     programs.fish.shellInit = import ./fish { inherit pkgs; };
 
-    programs.kitty.enable = true;
-    programs.kitty.config = import ./kitty;
-
-    xsession.windowManager.i3 = import ./i3 { inherit i3; };
-
-    xdg.configFile."i3/dynamic-tagging/" = {
+    xdg.configFile."mutt/" = {
       recursive = true;
-      executable = true;
-      source = ./i3/dynamic-tagging;
+      executable = false;
+      source = ./mutt;
     };
 
-    xdg.configFile."i3/compton.conf" = {
-      source = ./i3/compton.conf;
-    };
+    # programs.kitty.enable = true;
+    # programs.kitty.config = import ./kitty;
+
+    # xsession.windowManager.i3 = import ./i3 { inherit i3; };
+
+    # xdg.configFile."i3/dynamic-tagging/" = {
+    #   recursive = true;
+    #   executable = true;
+    #   source = ./i3/dynamic-tagging;
+    # };
+
+    # xdg.configFile."i3/compton.conf" = {
+    #   source = ./i3/compton.conf;
+    # };
 
     programs.home-manager = {
       enable = true;
-      path = "/home/spacekookie/Personal/clones/home-manager";
+      path = "/home/sys/home-manager";
     };
   }

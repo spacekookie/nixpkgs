@@ -4,7 +4,7 @@ alias debug="env RUST_BACKTRACE=1"
 alias stalk="watch -n 0.1"
 
 alias nxs="nix run -f '<nixpkgs>'"
-alias hm="home-manager"
+alias hm="home-manager -f $HOME/sys/stuff/home.nix"
 
 alias c="cargo"
 alias g="git"

@@ -4,7 +4,7 @@ set -gx PATH $HOME/.local/bin $PATH
 set -gx PATH /usr/sbin $PATH
 set -gx GRAAL_HOME ~/.local/share/graalvm/
 
-direnv hook fish | source
+# direnv hook fish | source
 
 # gnome-keyring insists on setting this to itself, even if ssh support is disabled
 set -x SSH_AUTH_SOCK "/run/user/1000/gnupg/S.gpg-agent.ssh"
@@ -17,13 +17,13 @@ set -gx PATH $NPM_PACKAGES/bin $PATH
 set -x LC_ALL en_GB.utf8
  
 # Include the nix environment
-fenv source /home/spacekookie/.nix-profile/etc/profile.d/nix.sh
+# fenv source /home/spacekookie/.nix-profile/etc/profile.d/nix.sh
 
 # Better nix-shell support!
 any-nix-shell fish --info-right | source
  
 # Make git use emacs
-set -x EDITOR emacs
+set -x EDITOR kak
 
 # tuuuuuuuurbofish!
 set fish_greeting 'Welcome to the '(set_color FF66CC)'::<>' (set_color normal)'...'
