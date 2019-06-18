@@ -26,6 +26,11 @@ set forward_format = "Fwd: %s"
 
 mailboxes `find $HOME/office/mail -type d -name cur -printf '%h '`
 
+####
+#  Bindings
+####
+
+macro index,pager O "<shell-escape>mbsync -a<enter>" "run mbsync to sync all mail"
 
 ####
 #  GPG setup
