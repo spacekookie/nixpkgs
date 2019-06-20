@@ -22,7 +22,7 @@
 
       # Start software on <this> or <other> workspace
       "${modifier}+d" = "exec dmenu_run";
-      "${modifier}+Shift+d" = "exec ~/.config/i3/dynamic-tagging/i3-dtags-new.sh";
+      "${modifier}+Shift+d" = "exec ~/.config/i3/dynamic-tags/move.sh";
 
       # Move focus around - vim style
       "${modifier}+h" = "focus left";
@@ -63,8 +63,8 @@
       "${modifier}+Ctrl+r" = "exec i3-input -F 'rename workspace to \"%s\"' -P 'New name: '";
 
       # Switch to workspace (optionally dragging windows with)
-        "${modifier}+s" = "exec /home/spacekookie/.config/i3/dynamic-tagging/i3-dtags.sh -fn '$dfont'";
-        "${modifier}+Shift+s" = "exec $HOME/.config/i3/dynamic-tagging/i3-dtags-moveto.sh -fn '$dfont'";
+        "${modifier}+s" = "exec $HOME/.config/i3/dynamic-tags/switch.sh -fn '$dfont'";
+        "${modifier}+Shift+s" = "exec $HOME/.config/i3/dynamic-tags/move.sh -fn '$dfont'";
 
         # Some layout modifiers
         "${modifier}+e" = "layout default";
@@ -118,30 +118,17 @@
         # back to normal: Enter or Escape or $mod+r
         "Return" = "mode \"default\"";
         "Escape" = "mode \"default\"";
-        "$mod+r" = "mode \"default\"";
+        "${modifier}+r" = "mode \"default\"";
       } ;
     };
 
-    bars = [{
-      statusCommand = "i3status";
-      fonts = [ "iosevka-term-ss09 10" ];
-      position = "bottom";
-      #workspace_buttons = true;
-      colors = {
-        background = "#0F0F0F";
-        statusline = "#D5D5D5";
-      };
-      # extraConfig = ''
-      #   bindsym button4 nop
-      #   bindsym button5 nop
-      # '';
-    }];
+    # The `bars` module does weird stuff so we init it ourselves
+    bars = [];
   };
 
-  # TODO: Find a more `nix` way of handling these
   extraConfig = ''
     # Compton
-    exec_always --no-startup-id "killall -q compton; compton --config ~/.config/i3/compton.conf"
+    exec_always --no-startup-id "pkill compton; compton --config $HOME/.config/i3/compton.conf"
 
     # Make CAPSLOCK into ESC because it's 2018
     exec_always --no-startup-id "xmodmap -e 'clear lock' #disable caps lock switch"
@@ -149,16 +136,29 @@
     exec_always --no-startup-id "setxkbmap -layout crumbs intl -option caps:escape"
 
     # Set a wallpaper
-    exec --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/robot-wallpaper-pack-1080p-hd.jpg
+    exec --no-startup-id feh --bg-fill $HOME/pictures/wallpaper/ace-skies.jpg
 
     # Start redshift automatically
-    exec redshift-gtk
+    # exec redshift-gtk
+    exec pasystray
 
     # Start the nm-tray thingy
     exec nm-tray
 
     # Syncthing is kinda important!
     exec "syncthing-gtk -m -s"
+
+    bar {
+        status_command i3status -c $HOME/.config/i3/i3status.conf
+        position bottom
+        bindsym button4 nop
+        bindsym button5 nop
+        workspace_buttons yes
+        colors  {
+            background #0F0F0F
+            statusline #D5D5D5
+        }
+    }
 
     # Layout and design settings that should _really_ be in the module
     default_border pixel 3

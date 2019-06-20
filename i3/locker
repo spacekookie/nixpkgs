@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 BASEDIR="/tmp/i3lock"
 ICON="/usr/share/i3lock-fancy/icons/lock.png"
