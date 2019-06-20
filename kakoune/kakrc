@@ -10,8 +10,8 @@ source ~/.config/kak/skimming.kak
 source ~/.config/kak/highlights.kak
 
 ## Start the language server integration
-eval %sh{kak-lsp --kakoune -s $kak_session}
-lsp-auto-hover-enable
+#eval %sh{kak-lsp --kakoune -s $kak_session}
+#lsp-auto-hover-enable
 
 ## Smarter tab handling
 hook global InsertChar \t %{ try %{
@@ -24,7 +24,7 @@ hook global InsertDelete ' ' %{ try %{
 
 ## Some generic cool options
 add-highlighter global/ number-lines -hlcursor
-add-highlighter global/ wrap -word
+# add-highlighter global/ wrap -word
 set-option global ui_options ncurses_assistant=cat #meow!
 map global user 'w' %{:echo %sh{wc -w <lt><lt><lt> "${kak_selection}"}<ret>}
 set global scrolloff 5,1
