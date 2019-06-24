@@ -20,6 +20,8 @@ ${builtins.readFile ./functions/__history_previous_command.fish }
 ${builtins.readFile ./functions/__skim_cd.fish }
 ${builtins.readFile ./functions/__kakoune.fish }
 ${builtins.readFile ./functions/search.fish }
+${builtins.readFile ./functions/nxs.fish }
+${builtins.readFile ./functions/gen-shell.fish }
 
 ${builtins.readFile ./binds.fish}
 ''

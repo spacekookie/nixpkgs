@@ -7,9 +7,8 @@ function fish_prompt --description 'Write out the prompt'
         printf "%s(%d)%s " (set_color red --bold) $last_status (set_color normal)
     end
 
-    # Just calculate this once, to save a few cycles when displaying the prompt
-    if not set -q __fish_prompt_hostname
-        set -g __fish_prompt_hostname (hostname|cut -d . -f 1)
+    if not set -q __hostname
+        set -g __hostname (hostname|cut -d . -f 1)
     end
 
     set -l color_cwd
@@ -30,9 +29,5 @@ function fish_prompt --description 'Write out the prompt'
         set suffix '>'
     end
 
-    # if set -q VIRTUAL_ENV
-    #     echo -n -s (set_color -b blue white) "(" (basename "$VIRTUAL_ENV") ")" (set_color normal) " "
-    #  end
-
-    echo -n -s (set_color FF66CC) ' <3 ' (set_color normal) '(' "$__fish_prompt_hostname" ') ' (set_color $color_cwd) (prompt_pwd) (set_color normal) "$suffix "
+    echo -n -s (set_color FF66CC) ' ❤ ' (set_color normal) '(' "$__hostname" ') ' (set_color $color_cwd) (prompt_pwd) (set_color normal) "$suffix "
 end
