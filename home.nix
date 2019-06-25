@@ -48,14 +48,13 @@ in
       emacs
       iosevka
     ] ++ (with pkgs; [
-      twemoji-color-font
       tmux
+      links
       gnupg
       any-nix-shell
       fish
       fzf
       transmission-gtk
-      yubikey-personalization
       gopass
       cmake
       gnumake
@@ -106,7 +105,7 @@ in
 
     home.sessionVariables = {
       LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
-      NIX_PATH = "nixpkgs=/home/sys/nixpkgs";
+      NIX_PATH = "nixpkgs=/home/sys/nixpkgs:nixos-config=/home/sys/configuration.nix";
     };
 
     fonts.fontconfig.enable = true;
