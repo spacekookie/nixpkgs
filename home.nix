@@ -94,6 +94,7 @@ in
       torbrowser
       kicad
       darktable
+      spotify
 
       quasselClient
       gajim
@@ -133,6 +134,13 @@ in
 
     xdg.configFile."i3/i3status.conf" = {
       source = ./i3/i3status.conf;
+    };
+
+    xdg.configFile."nixpkgs/config.nix" = {
+      source = pkgs.writeTextFile {
+        name = "config.nix";
+        text = "{ allowUnfree = true; }";
+      };
     };
 
     imports = [ ./kakoune ./htop ];
