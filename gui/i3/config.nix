@@ -136,7 +136,7 @@
     # Make CAPSLOCK into ESC because it's 2018
     exec_always --no-startup-id "xmodmap -e 'clear lock' #disable caps lock switch"
     exec_always --no-startup-id "xmodmap -e 'keysym Caps_Lock = Escape' #set caps_lock as escape"
-    exec_always --no-startup-id "setxkbmap -layout crumbs intl -option caps:escape"
+    exec_always --no-startup-id "setxkbmap -layout us -variant altgr-intl -option caps:escape"
 
     # Set a wallpaper
     exec --no-startup-id feh --bg-fill $HOME/pictures/wallpaper/ace-skies.jpg
@@ -161,6 +161,8 @@
             statusline #D5D5D5
         }
     }
+
+    focus_follows_mouse no
 
     # Layout and design settings that should _really_ be in the module
     default_border pixel 3
