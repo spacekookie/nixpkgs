@@ -1,5 +1,5 @@
 # Useful
-alias void="void /home/spacekookie/.local/void.db"
+alias todo="void /home/.local/todo.db"
 alias debug="env RUST_BACKTRACE=1"
 alias stalk="watch -n 0.1"
 alias hib="systemctl hibernate"

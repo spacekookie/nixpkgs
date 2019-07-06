@@ -10,8 +10,10 @@ source ~/.config/kak/skimming.kak
 source ~/.config/kak/highlights.kak
 
 ## Start the language server integration
-#eval %sh{kak-lsp --kakoune -s $kak_session}
-#lsp-auto-hover-enable
+# eval %sh{kak-lsp -v --kakoune -s $kak_session}
+# hook global WinSetOption filetype=(rust|c|cpp) %{
+#   lsp-enable-window
+# }
 
 ## Smarter tab handling
 hook global InsertChar \t %{ try %{

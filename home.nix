@@ -1,37 +1,6 @@
 { lib, pkgs, ... }:
 
 let
-  emacs = (with pkgs; (emacsPackagesNgFor emacs26-nox).emacsWithPackages (epkgs:
-  (with epkgs; with epkgs.melpaStablePackages;
-    [
-      # Note: substituteAll
-      (runCommand "init.el" {} ''
-          mkdir -p $out/share/emacs/site-lisp
-           cp ${./emacs/init.el} $out/share/emacs/site-lisp/default.el
-      '')
-      use-package
-      color-theme-sanityinc-tomorrow
-      fzf
-      skim
-      company
-      flycheck
-      ripgrep
-      magit
-      markdown-mode
-      multiple-cursors
-      nix-mode
-      ox-reveal
-
-      rust-mode
-      cargo
-      flycheck-rust
-      eglot
-
-      lsp-mode
-      lsp-ui
-      company-lsp
-    ])));
-  git = (pkgs.git.override { svnSupport = true; sendEmailSupport = true;  });
   iosevka = (pkgs.iosevka.override {
       design = [ "v-at-long"
                  "v-l-italic"
@@ -44,65 +13,52 @@ let
     });
 in
   {
-    home.packages = [
-      emacs
-      iosevka
-    ] ++ (with pkgs; [
-      tmux
-      links
-      gnupg
-      any-nix-shell
-      fish
-      fzf
-      transmission-gtk
-      gopass
+    home.packages = with pkgs; [
       cmake
-      gnumake
-      w3m
-      void
-      pciutils
-      usbutils
-
       compton
-      xorg.xmodmap
-      jq
-      bat
-      fontconfig
-      wine
-      mono
+      darktable
       feh
-      syncthing-gtk
-      pasystray
-      paprefs
-      pavucontrol
-      gnome3.gnome-screenshot 
-
-      neomutt
-      notmuch
-      msmtp
-      isync
-      
-      rustup
+      firefox
+      fontconfig
+      gajim
       gcc9
       gcc9Stdenv
-      binutils
-      patchelf
-
-      alacritty
-      kitty
-      firefox
-      torbrowser
+      gitAndTools.hub
+      gnome3.gnome-screenshot 
+      gnumake
+      gnupg
+      gopass
+      isync
+      jq
       kicad
-      darktable
-      spotify
-
-      quasselClient
-      gajim
+      kitty
+      libreoffice
+      mono
+      msmtp
+      neomutt
+      notmuch
+      paprefs
+      pasystray
+      patchelf
+      pavucontrol
       python37Packages.python-axolotl # Needed for OMEMO
+      quasselClient
+      rustup
       signal-desktop
-      weechat
+      steam
+      spotify
+      subversion
+      superTuxKart
+      syncthing-gtk
       tdesktop
-    ]);
+      torbrowser
+      transmission-gtk
+      void
+      w3m
+      weechat
+      wine
+      xorg.xmodmap
+    ];
 
     home.sessionVariables = {
       LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
@@ -114,28 +70,6 @@ in
     programs.fish.enable = true;
     programs.fish.shellInit = import ./fish { inherit pkgs; };
 
-    # xdg.configFile."mutt/" = {
-    #   recursive = true;
-    #   executable = false;
-    #   source = ./mutt;
-    # };
-
-    xsession.windowManager.i3 = import ./i3 { i3 = pkgs.i3; };
-
-    xdg.configFile."i3/dynamic-tags/" = {
-      recursive = true;
-      executable = true;
-      source = ./i3/dynamic-tags;
-    };
-
-    xdg.configFile."i3/compton.conf" = {
-      source = ./i3/compton.conf;
-    };
-
-    xdg.configFile."i3/i3status.conf" = {
-      source = ./i3/i3status.conf;
-    };
-
     xdg.configFile."nixpkgs/config.nix" = {
       source = pkgs.writeTextFile {
         name = "config.nix";
@@ -143,7 +77,13 @@ in
       };
     };
 
-    imports = [ ./kakoune ./htop ];
+    imports = [ 
+      ./emacs
+      ./gui/i3
+      ./htop
+      ./kakoune
+      ./shell.nix
+    ];
 
     programs.home-manager = {
       enable = true;
