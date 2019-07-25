@@ -1755,6 +1755,8 @@ in
 
   nixpkgs-pytools = with python3.pkgs; toPythonApplication nixpkgs-pytools;
 
+  nodemcu-uploader = callPackage ../tools/misc/nodemcu-uploader { };
+
   noteshrink = callPackage ../tools/misc/noteshrink { };
 
   noti = callPackage ../tools/misc/noti {
