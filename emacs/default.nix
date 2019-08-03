@@ -8,11 +8,13 @@ let
             mkdir -p $out/share/emacs/site-lisp
             cp ${./init.el} $out/share/emacs/site-lisp/default.el
           '')
-          use-package
           color-theme-sanityinc-tomorrow
+          ledger-mode
           magit
           markdown-mode
-          ox-reveal ]));
+          ox-reveal 
+          use-package
+        ]));
 in
   {
     home.packages = [ package ]; 
