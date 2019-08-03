@@ -30,4 +30,5 @@ function fish_prompt --description 'Write out the prompt'
     end
 
     echo -n -s (set_color FF66CC) ' ❤ ' (set_color normal) '(' "$__hostname" ') ' (set_color $color_cwd) (prompt_pwd) (set_color normal) "$suffix "
+    # echo -n -s (set_color FF66CC) ' I love you Kookie <3 Alyssa ' (set_color normal) '(' "$__hostname" ') ' (set_color $color_cwd) (prompt_pwd) (set_color normal) "$suffix "
 end

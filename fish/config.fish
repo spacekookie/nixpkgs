@@ -4,6 +4,9 @@ set -gx PATH $HOME/.local/bin $PATH
 set -gx PATH /usr/sbin $PATH
 set -gx GRAAL_HOME ~/.local/share/graalvm/
 
+# The o bit is a bit of a hack
+umask u=rw,g=rw,o-rwx
+
 # direnv hook fish | source
 
 # gnome-keyring insists on setting this to itself, even if ssh support is disabled

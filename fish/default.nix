@@ -11,17 +11,18 @@ ${builtins.readFile ./alias.fish }
 
 ${builtins.readFile ./functions/fish_prompt.fish }
 ${builtins.readFile ./functions/fish_right_prompt.fish }
-${builtins.readFile ./functions/k.fish }
-${builtins.readFile ./functions/restart.fish }
-${builtins.readFile ./functions/rvm.fish }
 ${builtins.readFile ./functions/fish_user_key_bindings.fish }
+${builtins.readFile ./functions/gen-shell.fish }
 ${builtins.readFile ./functions/__history_previous_command_arguments.fish }
 ${builtins.readFile ./functions/__history_previous_command.fish }
-${builtins.readFile ./functions/__skim_cd.fish }
 ${builtins.readFile ./functions/__kakoune.fish }
-${builtins.readFile ./functions/search.fish }
+${builtins.readFile ./functions/k.fish }
+${builtins.readFile ./functions/nrepl.fish }
 ${builtins.readFile ./functions/nxs.fish }
-${builtins.readFile ./functions/gen-shell.fish }
+${builtins.readFile ./functions/restart.fish }
+${builtins.readFile ./functions/rvm.fish }
+${builtins.readFile ./functions/search.fish }
+${builtins.readFile ./functions/__skim_cd.fish }
 
 ${builtins.readFile ./binds.fish}
 ''
