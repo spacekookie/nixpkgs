@@ -1,31 +1,37 @@
 { pkgs, ... }:
 
-{
-  home.packages = with pkgs; [
-    any-nix-shell
-    bat
-    binutils
-    cmake
-    file
-    fzf
-    gcc9
-    gcc9Stdenv
-    git
-    gitAndTools.hub
-    gnumake
-    gnupg
-    jq
-    links
-    patchelf
-    pciutils
-    ranger
-    ripgrep
-    rustup
-    skim
-    subversion
-    tmux
-    tree
-    usbutils
-    wget
-  ];
-}
+let
+  kookiepkgs = import <kookiepkgs> { };
+in
+  {
+    home.packages = with pkgs; with kookiepkgs; [
+      any-nix-shell
+      bat
+      binutils
+      bundix
+      cmake
+      curl
+      file
+      fzf
+      gcc9
+      gcc9Stdenv
+      gnumake
+      gnupg
+      invoice
+      jq
+      links
+      nodemcu-uploader
+      patchelf
+      pciutils
+      pv
+      ranger
+      ripgrep
+      rustup
+      skim
+      subversion
+      tmux
+      tree
+      usbutils
+      wget
+    ];
+  }

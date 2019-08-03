@@ -11,6 +11,7 @@ let
       upright = [ "v-i-hooky" ];
       set = "iosevka-ss09-term";
     });
+  kookiepkgs = import <kookiepkgs> { };
 in
   {
     home.packages = with pkgs; [
@@ -23,11 +24,11 @@ in
       gajim
       gcc9
       gcc9Stdenv
-      gitAndTools.hub
       gnome3.gnome-screenshot 
       gnumake
       gnupg
       gopass
+      (hunspellWithDicts (with hunspellDicts; [ en-gb-ise ]))
       isync
       jq
       kicad
@@ -35,7 +36,6 @@ in
       libreoffice
       mono
       msmtp
-      neomutt
       notmuch
       paprefs
       pasystray
@@ -62,7 +62,7 @@ in
 
     home.sessionVariables = {
       LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
-      NIX_PATH = "nixpkgs=/home/sys/nixpkgs:nixos-config=/home/sys/configuration.nix";
+      NIX_PATH = "nixpkgs=/home/sys/nixpkgs:kookiepkgs=/home/sys/kookiepkgs:nixos-config=/home/sys/configuration.nix";
     };
 
     fonts.fontconfig.enable = true;
@@ -79,9 +79,11 @@ in
 
     imports = [ 
       ./emacs
+      ./git
       ./gui/i3
       ./htop
       ./kakoune
+      ./mail
       ./shell.nix
     ];
 
