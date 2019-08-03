@@ -1,6 +1,13 @@
 # Kookie's not so amazing kakrc #
+# ^---------------------------------------- Loved by Alyssa
 # ============================= #
 
+#     _    ____    _    ____  
+#    / \  / ___|  / \  | __ ) 
+#   / _ \| |     / _ \ |  _ \ 
+#  / ___ \ |___ / ___ \| |_) |
+# /_/   \_\____/_/   \_\____/
+#
 
 ## Imports from other files
 source ~/.config/kak/wiki.kak
@@ -10,21 +17,34 @@ source ~/.config/kak/skimming.kak
 source ~/.config/kak/highlights.kak
 
 ## Start the language server integration
-# eval %sh{kak-lsp -v --kakoune -s $kak_session}
-# hook global WinSetOption filetype=(rust|c|cpp) %{
-#   lsp-enable-window
-# }
+eval %sh{kak-lsp -v --kakoune -s $kak_session}
+hook global WinSetOption filetype=(rust|c|cpp) %{
+  lsp-enable-window
+  lsp-auto-hover-enable
+  lsp-auto-hover-insert-mode-enable
+  set-option window lsp_hover_anchor true
+  set-option global lsp_diagnostic_line_error_sign "!"
+  set-option global lsp_diagnostic_line_warning_sign "*"
+}
 
 ## Smarter tab handling
-hook global InsertChar \t %{ try %{
-  execute-keys -draft "h<a-h><a-k>\A\h+\z<ret><a-;>;%opt{indentwidth}@"
-}}
+# hook global InsertChar \t %{ try %{
+#   execute-keys -draft "h<a-h><a-k>\A\h+\z<ret><a-;>;%opt{indentwidth}@"
+# }}
 
 hook global InsertDelete ' ' %{ try %{
   execute-keys -draft 'h<a-h><a-k>\A\h+\z<ret>i<space><esc><lt>'
 }}
 
-## Some generic cool options
+map global insert <tab> '#<esc>h!printf "%${kak_opt_indentwidth}s"<ret>di'
+# hook global InsertDelete ' ' %{
+#   execute-keys -draft "i #<esc>h%opt{indentwidth}H|sed ""s/ {$kak_opt_indentwidth}//""<ret>;d"
+# }
+
+# abcdef
+
+
+# Some generic cool options
 add-highlighter global/ number-lines -hlcursor
 # add-highlighter global/ wrap -word
 set-option global ui_options ncurses_assistant=cat #meow!
@@ -78,3 +98,10 @@ define-command mkdirp \
 }
 
 colorscheme tomorrow-night
+
+define-command -docstring "Test some shit" weird %{
+  evaluate-commands %sh{
+    echo "hello"
+  }
+}
+
