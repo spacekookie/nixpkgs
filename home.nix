@@ -53,6 +53,13 @@ in
       tdesktop
       torbrowser
       transmission-gtk
+
+      virtmanager
+      spice-gtk
+      spice
+      win-spice
+      virt-viewer
+
       void
       w3m
       weechat
@@ -62,7 +69,7 @@ in
 
     home.sessionVariables = {
       LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
-      NIX_PATH = "nixpkgs=/home/sys/nixpkgs:kookiepkgs=/home/sys/kookiepkgs:nixos-config=/home/sys/configuration.nix";
+      NIX_PATH = "/home/sys/:nixos-config=/home/sys/configuration.nix";
     };
 
     fonts.fontconfig.enable = true;
@@ -82,6 +89,7 @@ in
       ./git
       ./gui/i3
       ./htop
+      ./java-dev
       ./kakoune
       ./mail
       ./shell.nix

@@ -5,7 +5,7 @@ set -gx PATH /usr/sbin $PATH
 set -gx GRAAL_HOME ~/.local/share/graalvm/
 
 # The o bit is a bit of a hack
-umask u=rw,g=rw,o-rwx
+# umask u=rw,g=rw,o-rwx
 
 # direnv hook fish | source
 
