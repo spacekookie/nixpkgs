@@ -23255,6 +23255,8 @@ in
 
   foldingathome = callPackage ../misc/foldingathome { };
 
+  foo2hbpl2 = callPackage ../misc/drivers/foo2hbpl { };
+
   foo2zjs = callPackage ../misc/drivers/foo2zjs {};
 
   foomatic-filters = callPackage ../misc/drivers/foomatic-filters {};
