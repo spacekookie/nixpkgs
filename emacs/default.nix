@@ -7,12 +7,7 @@ let
           mkdir -p $out/share/emacs/site-lisp
           cp ${./init.el} $out/share/emacs/site-lisp/default.el
         '')
-
-        # Some general improvements
-        color-theme-sanityinc-tomorrow          
-        ergoemacs-mode
-        sublimity
-
+       
         # Language support
         lsp-mode
         markdown-mode
@@ -20,11 +15,16 @@ let
         rust-mode
         fish-mode
 
-        # Various utils
+        # Some general improvements
+        color-theme-sanityinc-tomorrow          
+        ergoemacs-mode
+        fzf
         ledger-mode
         lsp-ui
         magit
         org
+        sublimity
+        yasnippet
       ]));
 in
   {

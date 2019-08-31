@@ -8,5 +8,5 @@ function e --description='Setup emacs server and open emacsclient'
         emacs --daemon=$session
     end
     
-    emacsclient -c -s $session ^ /dev/null > /dev/null &
+    emacsclient -c -s $session --eval '(fzf)' ^ /dev/null > /dev/null &
 end
