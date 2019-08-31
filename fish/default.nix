@@ -16,6 +16,7 @@ ${builtins.readFile ./functions/gen-shell.fish }
 ${builtins.readFile ./functions/__history_previous_command_arguments.fish }
 ${builtins.readFile ./functions/__history_previous_command.fish }
 ${builtins.readFile ./functions/__kakoune.fish }
+${builtins.readFile ./functions/e.fish }
 ${builtins.readFile ./functions/k.fish }
 ${builtins.readFile ./functions/nrepl.fish }
 ${builtins.readFile ./functions/nxs.fish }

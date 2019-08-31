@@ -18,6 +18,7 @@ let
         markdown-mode
         nix-mode
         rust-mode
+        fish-mode
 
         # Various utils
         ledger-mode

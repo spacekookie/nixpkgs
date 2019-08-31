@@ -12,10 +12,6 @@ set -gx GRAAL_HOME ~/.local/share/graalvm/
 # gnome-keyring insists on setting this to itself, even if ssh support is disabled
 set -x SSH_AUTH_SOCK "/run/user/1000/gnupg/S.gpg-agent.ssh"
 
-# I work with web stuff sometimes :(
-set -x NPM_PACKAGES "$HOME/.local/npm_packages"
-set -gx PATH $NPM_PACKAGES/bin $PATH
-
 # Fix some utf-8 errors
 set -x LC_ALL en_GB.utf8
  

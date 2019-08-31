@@ -38,3 +38,11 @@
 
 ;; Distraction free mode and minimap
 (require 'sublimity)
+(require 'sublimity-map)
+(require 'sublimity-attractive)
+
+(setq sublimity-map-size 10)
+(setq sublimity-map-fraction 0.5)
+(setq sublimity-map-text-scale -7)
+
+(sublimity-map-set-delay nil)
