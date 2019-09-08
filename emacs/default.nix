@@ -9,21 +9,31 @@ let
         '')
        
         # Language support
+        fish-mode
         lsp-mode
         markdown-mode
+        nim-mode
         nix-mode
+        python-mode
         rust-mode
-        fish-mode
 
         # Some general improvements
+        company
+        company-lsp
         color-theme-sanityinc-tomorrow          
+        elfeed
         ergoemacs-mode
         fzf
         ledger-mode
         lsp-ui
         magit
+        mastodon
         org
+        ranger
+        smex
         sublimity
+        visual-fill-column
+        vterm
         yasnippet
       ]));
 in
