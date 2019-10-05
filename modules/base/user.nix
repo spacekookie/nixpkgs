@@ -15,10 +15,5 @@ in
     extraGroups = [ "wheel" ];
     shell = lib.mkDefault pkgs.fish;
   };
-
-  home.spacekookie = {
-    permissions = "770";
-    group = "spacekookie";
-  };
 }
 
