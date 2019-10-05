@@ -27,5 +27,5 @@ with super; {
   
   htop = callPackage ./patches/htop { };
 
-  neomutt = callPackages ./patches/neomutt { };
+  # neomutt = callPackages ./patches/neomutt { };
 }
