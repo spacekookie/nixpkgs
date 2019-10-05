@@ -1,0 +1,25 @@
+#!/bin/sh
+
+BASEDIR="/tmp/i3lock"
+ICON="/usr/share/i3lock-fancy/icons/lock.png"
+IMAGE="$BASEDIR/lock.png"
+FORTUNE=$(fortune | sed -e 's/\t/    /g')
+TMP_RES=$(xrandr | grep \* | cut -d' ' -f4 | sed ':a;N;$!ba;s/\n/ /g')
+RESOLUTION=(`echo $TMP_RES | sed 's/ /\n/g'`)
+
+mkdir -p "$BASEDIR"
+convert -size 0x0 canvas:black "$IMAGE"
+
+for monitor in "${RESOLUTION[@]}" 
+do
+    echo "Running for monitor $monitor"
+    TMPLOCK="/tmp/i3lock/tmplock.png"
+    convert -size "$monitor" canvas:black -font Inconsolata -pointsize 18 \
+        -fill white -gravity center -annotate +0+250 "$FORTUNE" \
+        "$ICON" -gravity center -composite "$TMPLOCK"
+    convert "$IMAGE" "$TMPLOCK" +append "$IMAGE"
+    rm "$TMPLOCK"
+done
+
+i3lock -i "$IMAGE"
+
