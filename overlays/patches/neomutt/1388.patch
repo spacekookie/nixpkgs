@@ -1,0 +1,29 @@
+From aaee4ae3272416ad0d66a4984f3398552df13cef Mon Sep 17 00:00:00 2001
+From: Alyssa Ross <hi@alyssa.is>
+Date: Sun, 4 Nov 2018 17:01:05 +0000
+Subject: [PATCH] Work around mutt_expando_format buffer overflow
+
+This doesn't actually fix the overflow, but at least makes it less
+likely to be encountered.
+
+See https://github.com/neomutt/neomutt/issues/1388.
+---
+ muttlib.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/muttlib.c b/muttlib.c
+index 431d759b9..1498c5a45 100644
+--- a/muttlib.c
++++ b/muttlib.c
+@@ -773,7 +773,7 @@ void mutt_expando_format(char *buf, size_t buflen, size_t col, int cols, const c
+   FILE *filter = NULL;
+   char *recycler = NULL;
+ 
+-  char src2[STRING];
++  char src2[LONG_STRING];
+   mutt_str_strfcpy(src2, src, mutt_str_strlen(src) + 1);
+   src = src2;
+ 
+-- 
+2.19.1
+
