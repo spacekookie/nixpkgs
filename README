@@ -2,15 +2,15 @@ LIBKOOKIE
 =========
 
 This is my personal collection of nix expressions. It replaces my old
-[`kookiepkgs`][0] and [`nixcfg`][1] repositories. It contains a subtree
+`kookiepkgs` [0] and `nixcfg` [1] repositories. It contains a subtree
 of nixpkgs, overlays and modules.
 
-- `overlays/patches`: patches to upstream packages
-- `overlays/pkgs`: custom out-of-nixpkgs packages
-- `nixpkgs`: subtree of nixpkgs (follows unstable)
-- `modules`: system configuration modules
-- `roots`: available entry-points (machines)
-- `ext`: possible private extensions
+`overlays/patches`: patches to upstream packages
+`overlays/pkgs`: custom out-of-nixpkgs packages
+`nixpkgs`: subtree of nixpkgs (follows unstable)
+`modules`: system configuration modules
+`roots`: available entry-points (machines)
+`ext`: possible private extensions
 
 The `activate` script can be used to switch to a new system
 configuration
