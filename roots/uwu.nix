@@ -14,6 +14,8 @@
 {
   imports = [
     <home-manager/nixos>
+    ../modules/nix
+    ../modules/base
     ../modules/workstation
   ];
   
