@@ -26,6 +26,7 @@
       ./i3
       ./browser.nix
       ./fun.nix
+      ./kitty
     ];
   };
 }
