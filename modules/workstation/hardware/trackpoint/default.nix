@@ -3,7 +3,7 @@
  * This is a compatibility module for Thinkpad computers
  */
 
-{ config, .... }: {
+{ config, ... }: {
   services.xserver.libinput = {
     accelProfile = "flat";
     accelSpeed = "-0.2";

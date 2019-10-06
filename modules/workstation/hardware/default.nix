@@ -4,13 +4,18 @@
  * some are only relevant for specific platforms. Still
  * the general support should be provided by the
  * WORKSTATION module, not be bound to be device specific
+ *
+ * Not included but available:
+ *
+ * - TRACKPOINT
+ * - CKB
  */
 
 { ... }:
 
 {
   imports = [
-    ./yubikey
     ./xkblayout
+    ./yubikey
   ];
 }
