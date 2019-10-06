@@ -3,6 +3,7 @@
 {
   imports = [
     ./fish
+    ./git
     ./user.nix
   ];
 }

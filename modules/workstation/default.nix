@@ -18,7 +18,6 @@
       ./chat
       ./devel
       ./emacs
-      ./git
       ./pass
     ];
   };
