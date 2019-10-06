@@ -12,7 +12,7 @@
     keybindings = {
 
       # Start a terminal
-      "${modifier}+Return" = "exec kitty";
+      "${modifier}+Return" = "exec ${pkgs.kitty}/bin/kitty";
 
       # Close individual windows
       "${modifier}+Shift+q" = "kill";
@@ -129,9 +129,8 @@
   };
 
   extraConfig = with pkgs; ''
-    # Compton
-    exec_always --no-startup-id "pkill compton; ${compton}/bin/compton \
-                --config ~/.config/i3/compton.conf"
+    # Setup compton compositor
+    exec_always --no-startup-id "pkill compton; ${compton}/bin/compton --config ~/.config/i3/compton.conf"
 
     # Make CAPSLOCK into ESC because it's 2018
     #
@@ -139,8 +138,7 @@
     # binding CAPSLOCK to HYPER, so that I can use it as a modifier in emacs,
     # but then using xcape(1) to also make short CAPSLOCK presses into ESCAPE.
 
-    exec_always --no-startup-id "${xorg.xmodmap}/bin/setxkbmap \
-                -layout us -variant altgr-intl -option caps:hyper"
+    exec_always --no-startup-id "${xorg.xmodmap}/bin/setxkbmap -layout us -variant altgr-intl -option caps:hyper"
     exec ${xcape}/bin/xcape -e "#66=Escape" -t 150
 
     # Always set a wallpaper
@@ -154,7 +152,7 @@
         colors  {
             background #0F0F0F
             statusline #D5D5D5
-        }k
+        }
     }
 
     focus_follows_mouse no

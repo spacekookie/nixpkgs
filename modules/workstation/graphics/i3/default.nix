@@ -6,6 +6,7 @@ in
 {
   xsession.windowManager.i3 = import ./config.nix { inherit pkgs wallpaper; };
 
+  home.packages = with pkgs; [ jq coreutils ];
   xdg.configFile."i3/dynamic-tags/" = {
     recursive = true;
     executable = true;
