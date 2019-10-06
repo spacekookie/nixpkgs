@@ -12,16 +12,20 @@
 { lib, config, pkgs, ... }:
 
 {
+  nixpkgs.config.allowUnfree = true;
+
   imports = [
     <home-manager/nixos>
     ../modules/nix
     ../modules/base
     ../modules/workstation
+    ../modules/workstation/hardware/trackpoint
   ];
   
   boot.kernelModules = [ "kvm-intel" ];
   boot.initrd.availableKernelModules =
     [ "xhci_pci" "ehci_pci" "ahci" "sd_mod" "sdhci_pci" ];
+  hardware.enableRedistributableFirmware = true;
   
   boot.loader.grub = {
     copyKernels = true;
