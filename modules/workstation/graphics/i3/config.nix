@@ -130,7 +130,7 @@
 
   extraConfig = with pkgs; ''
     # Setup compton compositor
-    exec_always --no-startup-id "pkill compton; ${compton}/bin/compton --config ~/.config/i3/compton.conf"
+    exec_always --no-startup-id "${coreutils}/bin/pkill compton; ${compton}/bin/compton --config ~/.config/i3/compton.conf"
 
     # Make CAPSLOCK into ESC because it's 2018
     #
@@ -145,7 +145,7 @@
     exec_always --no-startup-id ${feh}/bin/feh --bg-fill ${wallpaper}
 
     bar {
-        status_command i3status -c ~/.config/i3/i3status.conf
+        status_command ${i3status}/bin/i3status -c ~/.config/i3/i3status.conf
         position bottom
         bindsym button4 nop
         bindsym button5 nop
