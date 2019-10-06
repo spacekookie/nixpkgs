@@ -1,8 +1,16 @@
 { pkgs, config, ... }:
 
 {
+  # Might want to run mbsync manually
   environment.systemPackages = with pkgs; [ isync ];
 
+  # Setup spacekookie-mail user
+  users.users.spacekookie-mail = {
+    createHome = true;
+    group = "spacekookie";
+    home = "/var/lib/spacekookie-mail";
+  };
+  
   systemd.services.isync =
     let
       maildir = "${config.users.users.spacekookie.home}/office/mail";
