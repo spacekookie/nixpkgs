@@ -11,7 +11,7 @@ in
     description = "Katharina Fey";
     home = mkDefault "/home";
     uid = mkDefault 1000;
-    group = "qyliss";
+    group = "spacekookie";
     extraGroups = [ "wheel" ];
     shell = lib.mkDefault pkgs.fish;
   };
