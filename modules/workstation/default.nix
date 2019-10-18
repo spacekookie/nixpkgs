@@ -19,6 +19,7 @@
       ./devel
       ./emacs
       ./pass
+      ./podman
     ];
   };
   
