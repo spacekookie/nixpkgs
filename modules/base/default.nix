@@ -4,6 +4,7 @@
   imports = [
     ./fish
     ./git
-    ./user.nix
+    ./shell
+    ./user
   ];
 }
