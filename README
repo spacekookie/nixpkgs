@@ -12,8 +12,9 @@ of nixpkgs, overlays and modules.
 - `roots`: available entry-points (machines)
 - `ext`: possible private extensions
 
-The `activate` script can be used to switch to a new system
-configuration
+The `build` script can be used to build, and then switch to new system
+configurations. To invoke the `-s` option, root priviledges are
+required.
 
 
 
