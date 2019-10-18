@@ -6,16 +6,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "spotifyd";
-  version = "0.2.14";
+  version = "0.2.19";
 
   src = fetchFromGitHub {
     owner = "Spotifyd";
     repo = "spotifyd";
     rev = "v${version}";
-    sha256 = "1hbcyc5rdrvdnvvsgaykqamq4i0yq8wqq5qjp6zjf4jlaxxif4nz";
+    sha256 = "063b28ysj224m6ngns9i574i7vnp1x4g07cqjw908ch04yngcg1c";
   };
 
-  cargoSha256 = "15gd8shg0mn4vsma2hckj6w8gkwr58iniyfw1vjrh4clw4x7ibb4";
+  cargoSha256 = "0pqxqd5dyw9mjclrqkxzfnzsz74xl4bg0b86v5q6kc0a91zd49b9";
 
   cargoBuildFlags = [
     "--no-default-features"
@@ -36,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     description = "An open source Spotify client running as a UNIX daemon";
     homepage = "https://github.com/Spotifyd/spotifyd";
     license = with licenses; [ gpl3 ];
-    maintainers = [ maintainers.anderslundstedt ];
+    maintainers = [ maintainers.anderslundstedt maintainers.marsam ];
     platforms = platforms.unix;
   };
 }
