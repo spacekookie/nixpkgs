@@ -7,25 +7,25 @@
 
 self: super:
 
-with super; {
+{
 
-  barrel-blog = callPackage ./kookie/barrel-blog { };
+  barrel-blog = self.callPackage ./kookie/barrel-blog { };
+  
+  invoice = self.callPackage ./kookie/invoice { };
 
-  invoice = callPackage ./kookie/invoice { };
-
-  spacekookie-de = callPackage ./kookie/spacekookie-de { };
+  spacekookie-de = self.callPackage ./kookie/spacekookie-de { };
 
 } // {
 
-  nodemcu-uploader = callPackage ./staging/nodemcu-uploader { };
+  nodemcu-uploader = self.callPackage ./staging/nodemcu-uploader { };
   
-  pleroma = callPackage ./staging/pleroma { };
+  pleroma = self.callPackage ./staging/pleroma { };
   
 } // {
 
-  emacs-ergoemacs-mode = callPackage ./patches/emacs-ergoemacs-mode { };
+  emacs-ergoemacs-mode = self.callPackage ./patches/emacs-ergoemacs-mode { };
   
-  htop = callPackage ./patches/htop { };
+  htop = self.callPackage ./patches/htop { inherit (super) htop; };
 
-  # neomutt = callPackages ./patches/neomutt { };
+  neomutt = self.callPackages ./patches/neomutt { inherit (super) neomutt; };
 }

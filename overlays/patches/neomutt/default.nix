@@ -6,8 +6,8 @@
  * Luckily someone had already written a patch
  * for this, so I didn't have to :)
  */
-{ pkgs, ... }:
+{ neomutt }:
 
-pkgs.neomutt.overrideAttrs ({ patches ? [], ... }: {
+neomutt.overrideAttrs ({ patches ? [], ... }: {
   patches = patches ++ [ ./1388.patch ];
 })

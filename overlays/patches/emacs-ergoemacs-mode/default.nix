@@ -4,9 +4,9 @@
  * (ergoemacs) uses MENU as a modifier key. Instead
  * I would like to use HYPER.
  */
-{ pkgs, ... }:
+{ emacsPackagesNg }:
 
-with pkgs.emacsPackagesNg;
+with emacsPackagesNg;
 ergoemacs-mode.overrideAttrs ({ patches ? [], ... }: {
   patches = patches ++ [ ./menu_to_hyper.patch ];
 })
