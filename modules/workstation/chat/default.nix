@@ -10,6 +10,7 @@
     dino
     quasselClient
     signal-desktop
+    tdesktop
     weechat
   ];
 }
