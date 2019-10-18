@@ -28,6 +28,7 @@
     ./hardware
     ./mail
     ./networking
+    ./printing
     ./sound
     ./syncthing
   ];
