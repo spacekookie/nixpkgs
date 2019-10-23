@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let
-  package = with pkgs; emacsWithPackages (epkgs:
+  emacs = with pkgs; emacsWithPackages (epkgs:
     (with epkgs; [
       (runCommand "init.el" {} ''
           mkdir -p $out/share/emacs/site-lisp
@@ -24,6 +24,7 @@ let
       company
       company-lsp
       color-theme-sanityinc-tomorrow
+      direnv
       fzf
       ledger-mode
       lsp-ui
@@ -37,5 +38,5 @@ let
     ]));
 in
 {
-  home.packages = [ package ];
+  home.packages = [ emacs pkgs.direnv ];
 }

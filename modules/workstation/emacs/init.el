@@ -1,5 +1,9 @@
 ;; Kookie's emacs config
 
+;; Enable automatic shell.nix loading
+(require 'direnv)
+(direnv-mode)
+
 ;; More sane line-number behaviour
 (setq display-line-numbers-grow-only 1)
 (setq display-line-numbers-width-start 1)
@@ -65,6 +69,12 @@
 
 ;; This is require for lsp-mode
 (require 'yasnippet)
+
+(defun lorri (&optional buffer-name)
+  (interactive)
+  (setq buffer-name (or buffer-name (generate-new-buffer "*lorri*")))
+  (start-process "lorri" buffer-name "lorri" "watch")
+  (display-buffer buffer-name))
 
 ;; Better completion handling with lsp-mode
 (require 'company-lsp)
