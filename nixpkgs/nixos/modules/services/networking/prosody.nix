@@ -162,6 +162,12 @@ let
       description = "Serve static files from a directory over HTTP";
     };
 
+    http_upload = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Allows clients to upload files via HTTP requests";
+    };
+
     # Other specific functionality
     limits = mkOption {
       type = types.bool;
