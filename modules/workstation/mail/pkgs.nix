@@ -8,7 +8,7 @@
 { pkgs, ... }:
 
 {
-  home.packages = with pkgs; [ neomutt notmuch thunderbird ];
+  home.packages = with pkgs; [ msmtp neomutt notmuch thunderbird ];
 #   imports = [
 #     ../../../ext/mail/neomutt.nix
 #     ../../../ext/mail/notmuch.nix
