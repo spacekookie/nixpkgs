@@ -25,9 +25,9 @@
       "${modifier}+Shift+d" = "exec ~/.config/i3/dynamic-tags/move.sh";
 
       # Move focus around - vim style
-      "${modifier}+h" = "focus left";
-      "${modifier}+j" = "focus down";
-      "${modifier}+k" = "focus up";
+      "${modifier}+i" = "focus up";
+      "${modifier}+j" = "focus left";
+      "${modifier}+k" = "focus down";
       "${modifier}+l" = "focus right";
 
       # Move focus around - boring style
@@ -37,9 +37,9 @@
       "${modifier}+Right" = "focus right";
 
       # Move windows - vim style
-      "${modifier}+Shift+k" = "move up";
-      "${modifier}+Shift+j" = "move down";
-      "${modifier}+Shift+h" = "move left";
+      "${modifier}+Shift+i" = "move up";
+      "${modifier}+Shift+j" = "move left";
+      "${modifier}+Shift+k" = "move down";
       "${modifier}+Shift+l" = "move right";
 
       # Move windows - boring style
