@@ -29,6 +29,7 @@
     ./mail
     ./networking
     ./printing
+    ./redshift
     ./sound
     ./syncthing
   ];

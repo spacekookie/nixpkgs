@@ -1,7 +1,8 @@
 { ... }: {
   services.redshift = {
     enable = true;
-    temperatre.night = 3500;
-    provider = "geoclue2";
+    temperature.night = 3500;
   };
+
+  location.provider = "geoclue2";
 }
