@@ -19,13 +19,19 @@
 (setq inhibit-startup-message 1) 
 (setq initial-scratch-message nil)
 
-;; Swap/Backup files are annoying AF
-(setq make-backup-files nil)
-(setq auto-save-default nil)
+(autoload 'notmuch "notmuch" "notmuch mail" t)
+(setq notmuch-search-oldest-first nil)
+
+;; Change the swap/autosave directory
+(let ((backup-dir (concat user-emacs-directory "backups")))
+  (make-directory backup-dir t)
+  (setq backup-directory-alist (list (cons "." backup-dir)))
+  (setq message-auto-save-directory backup-dir))
 
 ;; Some editing niceties
 (delete-selection-mode 1)
 (show-paren-mode 1)
+(setq-default truncate-lines t)
 
 ;; Explicitly enable lsp-mode for certain languages
 (add-hook 'rust-mode-hook #'lsp)
@@ -52,8 +58,10 @@
 (setq ergoemacs-keyboard-layout "us")
 (ergoemacs-mode 1)
 
-;; VTerm integration
-(require 'vterm)
+;; Better jumping behaviour - bound to major mode changes
+(add-hook 'after-change-major-mode
+          #'((local-unset-key (kbd "C-M-i"))
+             (local-set-key (kbd "C-M-i") 'backward-paragraph)))
 
 ;; Distraction free mode and minimap
 (require 'sublimity)

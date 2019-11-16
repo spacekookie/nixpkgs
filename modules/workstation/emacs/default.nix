@@ -8,8 +8,8 @@ let
           cp ${./init.el} $out/share/emacs/site-lisp/default.el
         '')
 
-      # Custom patched mode
-      pkgs.emacs-ergoemacs-mode
+      # TODO: Add custom patched mode
+      ergoemacs-mode
 
       # Language support
       fish-mode
