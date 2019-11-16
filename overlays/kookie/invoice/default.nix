@@ -1,4 +1,5 @@
-{ stdenv, makeWrapper, coreutils, findutils, gawk, pandoc, gnumake, texlive }:
+{ stdenv, makeWrapper, coreutils, findutils,
+  gawk, pandoc, gnumake, texlive }:
 
 stdenv.mkDerivation {
   pname = "invoice";
@@ -21,7 +22,7 @@ stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "Generate dynamic invoices based on yaml descriptors";
-    homepage = "https://git.sr.ht/~spacekookie/kookiepkgs/";
+    homepage = "https://git.sr.ht/~spacekookie/libkookie/";
     license = licenses.gpl3;
   };
 }

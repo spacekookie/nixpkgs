@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, pkgs, ... }:
+{ stdenv, fetchFromGitHub, pythonPackages }:
 
 let
   json = with builtins; fromJSON (readFile ./meta.json);
@@ -15,7 +15,7 @@ in
       sha256 = masterSha256;
     }; 
 
-    buildInputs = with pkgs.pythonPackages; [ pelican webassets markdown ];
+    buildInputs = with pythonPackages; [ pelican webassets markdown ];
 
     installPhase = ''
       cd docs/
