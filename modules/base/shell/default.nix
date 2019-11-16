@@ -18,6 +18,8 @@
       bat
       curl
       fzf
+      htop
+      kakoune # used to have a vim-type editor everywhere
       moreutils
       pciutils
       pv
