@@ -10,7 +10,7 @@
  * can be operated entirely in userspace.
  */
 
-{ pkgs, home-manager, ... }:
+{ home-manager, ... }:
 
 {
   home-manager.users.spacekookie = { ... }: {
@@ -32,5 +32,6 @@
     ./redshift
     ./sound
     ./syncthing
+    ./time
   ];
 }
