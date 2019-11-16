@@ -1,7 +1,5 @@
 # source $HOME/.cargo/env
-set -gx PATH $HOME/.cargo/bin $PATH
-set -gx PATH $HOME/.local/bin $PATH
-set -gx PATH /usr/sbin $PATH
+# set -gx PATH $HOME/.cargo/bin $PATH
 
 # The o bit is a bit of a hack
 # umask u=rw,g=rw,o-rwx
