@@ -5,6 +5,6 @@
     user = "spacekookie";
     group = "spacekookie";
     openDefaultPorts = false;
-    guiAddress = "localhost:1234";
+    guiAddress = "127.0.0.1:1234";
   };
 }
