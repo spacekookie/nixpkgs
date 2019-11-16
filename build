@@ -2,28 +2,40 @@
 
 set -eo pipefail
 
-DIR=$(dirname $0)
+DIR=$(realpath $(dirname $0))
 D=$(mktemp -du)
-ROOT="$DIR/roots/$(hostname).nix"
+ROOT="$DIR/roots/uwu.nix"
 
-function build {
+echo Active tree: $DIR
+
+## Build the libkookie tree
+function build {  
     NIXPKGS_ALLOW_UNFREE=1 \
             nix build -f '<nixpkgs/nixos>' config.system.build \
             -I nixos-config="$ROOT" \
             -I "nixpkgs=$DIR/nixpkgs" \
             -I "nixpkgs-overlays=$DIR/overlays" \
             -I "home-manager=$DIR/home-manager" \
-            --out-link "$D"
+            --out-link "$D" $ARGV
 }
 
+## Build and output build path for debugging
+function debug {
+    build $ROOT
+    echo "Build path: $D-18"
+    exit 0
+}
+
+## Build and switch to the new configuration (requires root)
 function switch {
     build $ROOT
     $D-18/bin/switch-to-configuration switch
 }
 
 case "$1" in
-    -s* | --switch*) switch ;;
-    *)               build ;;
+    -s* | --switch*) shift; switch ;;
+    -d* | --debug*)  shift; debug ;;
+    *)               shift; build ;;
 esac
 
 rm -rf $D*
