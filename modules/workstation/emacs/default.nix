@@ -18,6 +18,7 @@ let
       rust-mode
 
       color-theme-sanityinc-tomorrow
+      company
       company-lsp
       direnv
       fzf
@@ -32,7 +33,6 @@ let
       undo-tree
       visual-fill-column
       yasnippet
-      company
     ]));
 in
 {

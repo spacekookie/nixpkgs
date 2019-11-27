@@ -56,13 +56,6 @@
 (require 'sublimity)
 (require 'sublimity-attractive)
 
-;; (setq sublimity-map-size 10)
-;; (setq sublimity-map-fraction 0.5)
-;; (setq sublimity-map-text-scale -7)
-
-;; ;; Display minimap without delay
-;; (sublimity-map-set-delay nil)
-
 ;; This is require for lsp-mode
 (require 'yasnippet)
 
@@ -123,7 +116,7 @@
   (next-buffer)
   (let ((i 0))
     (while (< i 20)
-      (if (not (xah-user-buffer-q))
+      (if (not (user-buffer-q))
           (progn (next-buffer)
                  (setq i (1+ i)))
         (progn (setq i 100))))))
@@ -134,7 +127,7 @@
   (previous-buffer)
   (let ((i 0))
     (while (< i 20)
-      (if (not (xah-user-buffer-q))
+      (if (not (user-buffer-q))
           (progn (previous-buffer)
                  (setq i (1+ i)))
         (progn (setq i 100))))))
@@ -142,7 +135,7 @@
 ;;; Some stolen bindings from ergo-emacs
 (global-set-key (kbd "C-x C-k") 'kill-current-buffer)
 (global-set-key (kbd "C-x n") 'new-empty-buffer)
-(global-set-key (kbd "M-s M-s") 'savebuffer) ; It's like a quicksave
-(global-set-key (kbd "C-t") 'execute-extendedcommand) ; Not sure how this makes sense but voila!
 (global-set-key (kbd "C-<next>") 'next-user-buffer)
 (global-set-key (kbd "C-<prior>") 'previous-user-buffer)
+(global-set-key (kbd "M-s M-s") 'save-buffer)
+(global-set-key (kbd "C-t") 'execute-extended-command)
