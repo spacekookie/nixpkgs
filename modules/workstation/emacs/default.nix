@@ -8,9 +8,6 @@ let
           cp ${./init.el} $out/share/emacs/site-lisp/default.el
         '')
 
-      # TODO: Add custom patched mode
-      ergoemacs-mode
-
       # Language support
       fish-mode
       lsp-mode
@@ -20,21 +17,22 @@ let
       python-mode
       rust-mode
 
-      # Some general improvements
-      company
-      company-lsp
       color-theme-sanityinc-tomorrow
+      company-lsp
       direnv
       fzf
       ledger-mode
       lsp-ui
       magit
+      monokai-theme
       notmuch
       org
       smex
       sublimity
+      undo-tree
       visual-fill-column
       yasnippet
+      company
     ]));
 in
 {

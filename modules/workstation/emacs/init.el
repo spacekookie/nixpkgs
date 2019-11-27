@@ -42,38 +42,26 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
-(add-hook 'java-mode-hook (local-unset-key "M-a"))
-;; (add-hook 'prog-mode-hook (local-unset-key "M-a"))
-
 (column-number-mode 1)
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
 (ido-mode 1)
+
 (add-hook 'find-file-hook (lambda () (ruler-mode 1)))
 
 (require 'color-theme-sanityinc-tomorrow)
 (load-theme 'sanityinc-tomorrow-eighties)
 
-;; More ergonomic keybindings 
-(require 'ergoemacs-mode)
-(setq ergoemacs-theme nil)
-(setq ergoemacs-keyboard-layout "us")
-(ergoemacs-mode 1)
-
-;; Better jumping behaviour - bound to major mode changes
-(add-hook 'after-change-major-mode
-          #'((local-unset-key (kbd "C-M-i"))
-             (local-set-key (kbd "C-M-i") 'backward-paragraph)))
-
 ;; Distraction free mode and minimap
 (require 'sublimity)
-(require 'sublimity-map)
 (require 'sublimity-attractive)
 
-(setq sublimity-map-size 10)
-(setq sublimity-map-fraction 0.5)
-(setq sublimity-map-text-scale -7)
+;; (setq sublimity-map-size 10)
+;; (setq sublimity-map-fraction 0.5)
+;; (setq sublimity-map-text-scale -7)
 
-;; Display minimap without delay
-(sublimity-map-set-delay nil)
+;; ;; Display minimap without delay
+;; (sublimity-map-set-delay nil)
 
 ;; This is require for lsp-mode
 (require 'yasnippet)
@@ -101,3 +89,60 @@
     ("https://xkcd.com/rss.xml" webcomic)
     ("https://deterministic.space/feed.xml" rust blog)
   ))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;                               ;;;;;;;;;;;;
+;;;;;;;;; KOOKIE-MODE DEFINITIONS BELOW ;;;;;;;;;;;;
+;;;;;;;;;                               ;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(defun new-empty-buffer ()
+  "Opens a new empty buffer."
+  (interactive)
+  (let ((buf (generate-new-buffer "untitled")))
+    (switch-to-buffer buf)
+    (funcall (and initial-major-mode))
+    (setq buffer-offer-save t)))
+
+(defun user-buffer-q ()
+  "Check if a buffer is a user buffer"
+  (interactive)
+  (if (string-equal "*" (substring (buffer-name) 0 1))
+      nil
+    (if (string-equal major-mode "dired-mode")
+        nil
+      t
+      )))
+
+(defun next-user-buffer ()
+  "Switch to the next user buffer."
+  (interactive)
+  (next-buffer)
+  (let ((i 0))
+    (while (< i 20)
+      (if (not (xah-user-buffer-q))
+          (progn (next-buffer)
+                 (setq i (1+ i)))
+        (progn (setq i 100))))))
+
+(defun previous-user-buffer ()
+  "Switch to the previous user buffer."
+  (interactive)
+  (previous-buffer)
+  (let ((i 0))
+    (while (< i 20)
+      (if (not (xah-user-buffer-q))
+          (progn (previous-buffer)
+                 (setq i (1+ i)))
+        (progn (setq i 100))))))
+
+;;; Some stolen bindings from ergo-emacs
+(global-set-key (kbd "C-x C-k") 'kill-current-buffer)
+(global-set-key (kbd "C-x n") 'new-empty-buffer)
+(global-set-key (kbd "M-s M-s") 'savebuffer) ; It's like a quicksave
+(global-set-key (kbd "C-t") 'execute-extendedcommand) ; Not sure how this makes sense but voila!
+(global-set-key (kbd "C-<next>") 'next-user-buffer)
+(global-set-key (kbd "C-<prior>") 'previous-user-buffer)
