@@ -91,22 +91,6 @@
 ;;;;;;;;;                               ;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-(defun move-line-up ()
-  "Move up the current line."
-  (interactive)
-  (transpose-lines 1)
-  (forward-line -2)
-  (indent-according-to-mode))
-
-(defun move-line-down ()
-  "Move down the current line."
-  (interactive)
-  (forward-line 1)
-  (transpose-lines 1)
-  (forward-line -1)
-  (indent-according-to-mode))
-
 (defun new-empty-buffer ()
   "Opens a new empty buffer."
   (interactive)
@@ -147,6 +131,85 @@
                  (setq i (1+ i)))
         (progn (setq i 100))))))
 
+
+(defun move--section (offset)
+  "Move a line or reg up or down by on offset."
+
+  ;; We'll have to track 4 text points in this function
+  ;; Future me: the * is important....
+  (let* (txt-start
+         txt-end
+         (reg-start (point))
+         (reg-end reg-start)
+
+         ;; De we delete a trailing \n
+         del-nl-trail)
+
+    ;; Find the text borders
+    (when (region-active-p)
+      (if (> (point) (mark))
+          (setq reg-start (mark))
+        (exchange-point-and-mark)
+        (setq reg-end (point))))
+    (end-of-line)
+
+    ;; If point > point-max there is no trailing \n
+    (if (< (point) (point-max))
+        (forward-char 1)
+      (setq del-nl-trail t)
+      (insert-char ?\n))
+    (setq txt-end (point)
+          reg-end (- reg-end txt-end))
+
+    ;; text/region start points
+    (goto-char reg-start)
+    (beginning-of-line)
+    (setq txt-start (point)
+          reg-start (- reg-start txt-end))
+
+    ;; I'm tired and numbers are hard 
+    (message "ts: %d, te: %d, rs: %d, re: %d"
+             txt-start
+             txt-end
+             reg-start
+             reg-end)
+
+    ;; Fake the txt move
+    (let ((text (delete-and-extract-region txt-start txt-end)))
+      (forward-line offset)
+      (when (not (= (current-column) 0))
+        (insert-char ?\n)
+        (setq del-nl-trail t))
+      (insert text))
+
+    ;; Restore point position
+    (forward-char reg-start)
+
+    ;; Clean that annoying \n at the end
+    (when del-nl-trail
+      (save-excursion
+        (goto-char (point-max))
+        (delete-char -1)))
+
+    ;; If we operated on a region we need to fix the selection
+    (when (region-active-p)
+      (setq deactivate-mark nil)
+      (set-mark (+ (point) (- (- reg-start reg-end)))))))
+
+(defun move-section-up (offset)
+  "Move a line or reg upwards"
+  (interactive "p")
+  (if (eq offset nil)
+    setq offset 1)
+  (move--section (- offset)))
+
+(defun move-section-down (offset)
+  "Move a line or region dawnwards"
+  (interactive "p")
+  (if (eq offset nil)
+      setq offset 1)
+  (move--section offset))
+
 ;;; Some stolen bindings from ergo-emacs
 (global-set-key (kbd "C-x C-k") 'kill-current-buffer)
 (global-set-key (kbd "C-x n") 'new-empty-buffer)
@@ -154,5 +217,5 @@
 (global-set-key (kbd "C-<prior>") 'previous-user-buffer)
 (global-set-key (kbd "M-s M-s") 'save-buffer)
 (global-set-key (kbd "C-t") 'smex)
-(global-set-key (kbd "C-S-<up>") 'move-line-up)
-(global-set-key (kbd "C-S-<down>") 'move-line-down)
+(global-set-key (kbd "C-M-<up>") 'move-section-up)
+(global-set-key (kbd "C-M-<down>") 'move-section-down)
