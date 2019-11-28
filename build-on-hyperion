@@ -1,0 +1,5 @@
+#!/bin/sh
+
+drvs="$(nix-instantiate "$@")"
+nix-copy-closure -s --to hyperion $drvs
+nix-copy-closure --from hyperion $(ssh hyperion nix-build $drvs)
