@@ -92,6 +92,21 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defun move-line-up ()
+  "Move up the current line."
+  (interactive)
+  (transpose-lines 1)
+  (forward-line -2)
+  (indent-according-to-mode))
+
+(defun move-line-down ()
+  "Move down the current line."
+  (interactive)
+  (forward-line 1)
+  (transpose-lines 1)
+  (forward-line -1)
+  (indent-according-to-mode))
+
 (defun new-empty-buffer ()
   "Opens a new empty buffer."
   (interactive)
@@ -138,4 +153,6 @@
 (global-set-key (kbd "C-<next>") 'next-user-buffer)
 (global-set-key (kbd "C-<prior>") 'previous-user-buffer)
 (global-set-key (kbd "M-s M-s") 'save-buffer)
-(global-set-key (kbd "C-t") 'execute-extended-command)
+(global-set-key (kbd "C-t") 'smex)
+(global-set-key (kbd "C-S-<up>") 'move-line-up)
+(global-set-key (kbd "C-S-<down>") 'move-line-down)
