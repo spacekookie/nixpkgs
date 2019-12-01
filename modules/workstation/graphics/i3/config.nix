@@ -21,14 +21,18 @@
       "${modifier}+f" = "fullscreen";
 
       # Start software on <this> or <other> workspace
-      "${modifier}+d" = "exec dmenu_run";
-      "${modifier}+Shift+d" = "exec ~/.config/i3/dynamic-tags/move.sh";
+      "${modifier}+e" = "exec dmenu_run";
+      "${modifier}+Shift+e" = "exec ~/.config/i3/dynamic-tags/move.sh";
 
+      # Switch to workspace (optionally dragging windows with)
+      "${modifier}+o" = "exec ~/.config/i3/dynamic-tags/switch.sh -fn '$dfont'";
+      "${modifier}+Shift+o" = "exec ~/.config/i3/dynamic-tags/move.sh -fn '$dfont'";
+      
       # Move focus around - vim style
-      "${modifier}+i" = "focus up";
-      "${modifier}+j" = "focus left";
-      "${modifier}+k" = "focus down";
-      "${modifier}+l" = "focus right";
+      "${modifier}+h" = "focus left";
+      "${modifier}+t" = "focus up";
+      "${modifier}+n" = "focus down";
+      "${modifier}+s" = "focus right";
 
       # Move focus around - boring style
       "${modifier}+Up" = "focus up";
@@ -37,10 +41,10 @@
       "${modifier}+Right" = "focus right";
 
       # Move windows - vim style
-      "${modifier}+Shift+i" = "move up";
-      "${modifier}+Shift+j" = "move left";
-      "${modifier}+Shift+k" = "move down";
-      "${modifier}+Shift+l" = "move right";
+      "${modifier}+Shift+h" = "move left";
+      "${modifier}+Shift+t" = "move up";
+      "${modifier}+Shift+n" = "move down";
+      "${modifier}+Shift+s" = "move right";
 
       # Move windows - boring style
       "${modifier}+Shift+Up" = "move up";
@@ -65,14 +69,11 @@
       # Rename workspaces
       "${modifier}+Ctrl+r" = "exec i3-input -F 'rename workspace to \"%s\"' -P 'New name: '";
 
-      # Switch to workspace (optionally dragging windows with)
-      "${modifier}+s" = "exec ~/.config/i3/dynamic-tags/switch.sh -fn '$dfont'";
-      "${modifier}+Shift+s" = "exec ~/.config/i3/dynamic-tags/move.sh -fn '$dfont'";
 
       # Some layout modifiers
-      "${modifier}+e" = "layout default";
-      "${modifier}+w" = "layout tabbed";
-      "${modifier}+q" = "layout stacked";
+      "${modifier}+3" = "layout default";
+      "${modifier}+4" = "layout tabbed";
+      "${modifier}+5" = "layout stacked";
 
       # Do I even use this?!
       "${modifier}+Shift+space" = "floating toggle";
@@ -89,10 +90,10 @@
       # Reload, restart and quit i3
       "${modifier}+Shift+c" = "reload";
       "${modifier}+Shift+r" = "restart";
-      "${modifier}+Shift+e" = ''
-        exec i3-nagbar -t warning -m "Workspaces are sentient, you know. \
-        We just have a lot of them" "i3-msg exit"
-      '';
+      # "${modifier}+Shift+e" = ''
+      #   exec i3-nagbar -t warning -m "Workspaces are sentient, you know. \
+      #   We just have a lot of them" "i3-msg exit"
+      # '';
 
       # Switch to resize mode (defined below)
       "${modifier}+r" = "mode \"resize\"";
