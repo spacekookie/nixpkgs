@@ -1,31 +1,25 @@
-{ stdenv, fetchFromGitHub, python3Packages }:
+{ lib, stdenv, fetchgit, python3Packages }:
 
-let
-  json = with builtins; fromJSON (readFile ./meta.json);
-  master = json.rev;
-  masterSha256 = json.sha256;
-in
-  stdenv.mkDerivation rec {
-    name = "spacekookie.de";
+stdenv.mkDerivation rec {
+  name = "spacekookie.de";
 
-    src = fetchFromGitHub {
-      owner = "spacekookie";
-      repo = "website";
-      rev = master;
-      sha256 = masterSha256;
-    }; 
+  src = fetchgit {
+    url = "https://git.sr.ht/~spacekookie/website";
+    rev = "f6ca92954f6b825f933f685cb3c27990b96b1721";
+    sha256 = "0414351da5hy1096lrmmpm2jwdrxb8j5v59ccz6ayzpv1vwxk5qd";
+  }; 
 
-    buildInputs = with python3Packages; [ pelican webassets markdown ];
+  buildInputs = with python3Packages; [ pelican webassets markdown ];
 
-    installPhase = ''
+  installPhase = ''
       pelican content
       cp -rv output $out
     '';
 
-    meta = with stdenv.lib; {
-      description = "The `about` and `blog` part of spacekookie.de";
-      homepage = "https://spacekookie.de";
-      license = licenses.mit;
-    };
-  }
+  meta = with stdenv.lib; {
+    description = "The `about` and `blog` part of spacekookie.de";
+    homepage = "https://spacekookie.de";
+    license = licenses.mit;
+  };
+}
 
