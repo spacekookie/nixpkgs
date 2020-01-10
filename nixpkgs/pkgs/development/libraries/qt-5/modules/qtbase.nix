@@ -58,7 +58,7 @@ stdenv.mkDerivation {
           # TODO: move to buildInputs, this should not be propagated.
           AGL AppKit ApplicationServices Carbon Cocoa CoreAudio CoreBluetooth
           CoreLocation CoreServices DiskArbitration Foundation OpenGL
-          darwin.libobjc libiconv MetalKit
+          darwin.libobjc libiconv MetalKit IOKit
         ]
       else
         [
@@ -221,7 +221,6 @@ stdenv.mkDerivation {
   # To prevent these failures, we need to override PostgreSQL detection.
   PSQL_LIBS = lib.optionalString (postgresql != null) "-L${postgresql.lib}/lib -lpq";
 
-  # -no-eglfs, -no-directfb, -no-linuxfb and -no-kms because of the current minimalist mesa
   # TODO Remove obsolete and useless flags once the build will be totally mastered
   configureFlags =
     [
@@ -327,11 +326,6 @@ stdenv.mkDerivation {
           "-I" "${libXrender.out}/include"
 
           "-libinput"
-
-          "-no-eglfs"
-          "-no-gbm"
-          "-no-kms"
-          "-no-linuxfb"
 
           ''-${lib.optionalString (cups == null) "no-"}cups''
           "-dbus-linked"

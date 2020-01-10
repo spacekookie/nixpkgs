@@ -10,11 +10,11 @@ let
   pythonForDocs = python3.withPackages (pkgs: with pkgs; [ pygobject3 ]);
 in stdenv.mkDerivation rec {
   pname = "network-manager";
-  version = "1.20.2";
+  version = "1.20.4";
 
   src = fetchurl {
     url = "mirror://gnome/sources/NetworkManager/${stdenv.lib.versions.majorMinor version}/NetworkManager-${version}.tar.xz";
-    sha256 = "115cgz448vypc7c592lqqjd7lp2kzdczhjk4ran6qls65hzkfkji";
+    sha256 = "0k4i6m8acp48vl6l13267wv6kfkmzfjq2mraaa5m9n82wyvkimx3";
   };
 
   outputs = [ "out" "dev" "devdoc" "man" "doc" ];
@@ -41,6 +41,7 @@ in stdenv.mkDerivation rec {
     "-Dcrypto=gnutls"
     "-Dsession_tracking=systemd"
     "-Dmodem_manager=true"
+    "-Dpolkit_agent=true"
     "-Dnmtui=true"
     "-Ddocs=true"
     "-Dtests=no"
@@ -51,15 +52,6 @@ in stdenv.mkDerivation rec {
   ];
 
   patches = [
-    # 1.20.2 added a decorators.sh script but they forgot to distribute it (breaking the build)
-    # as it was to fix things with gtk-doc 1.32 we can safely revert it.
-    (fetchpatch {
-      url = "https://gitlab.freedesktop.org/NetworkManager/NetworkManager/commit/2d941dc95a1d94d023ac8f98df2f344dbb1d223e.patch";
-      sha256 = "1mvbajddwd6diwk6dgjg5p65i6852gx6b9p3949rs63d2i6yzg21";
-      excludes = [ "tools/decorators.sh" ];
-      revert = true;
-    })
-
     (substituteAll {
       src = ./fix-paths.patch;
       inherit iputils kmod openconnect ethtool gnused dbus;
@@ -69,6 +61,13 @@ in stdenv.mkDerivation rec {
     # Meson does not support using different directories during build and
     # for installation like Autotools did with flags passed to make install.
     ./fix-install-paths.patch
+
+    # Fixes https://github.com/NixOS/nixpkgs/issues/72330
+    # Upstream MR: https://gitlab.freedesktop.org/NetworkManager/NetworkManager/merge_requests/323
+    (fetchpatch {
+      url = "https://gitlab.freedesktop.org/NetworkManager/NetworkManager/commit/4c11364201c094ad19ab9980ea6051a82bd2a550.patch";
+      sha256 = "14dgb6ijxyzcglrk67is2fn49iwrhljf2sld8w557i6zkypilmsv";
+    })
   ];
 
   buildInputs = [
@@ -112,7 +111,7 @@ in stdenv.mkDerivation rec {
     homepage = https://wiki.gnome.org/Projects/NetworkManager;
     description = "Network configuration and management tool";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ phreedom domenkozar obadz ];
+    maintainers = with maintainers; [ phreedom domenkozar obadz worldofpeace ];
     platforms = platforms.linux;
   };
 }

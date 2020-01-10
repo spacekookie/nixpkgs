@@ -654,6 +654,8 @@ let
       JOYSTICK_XPAD_FF    = option yes; # X-Box gamepad rumble support
       JOYSTICK_XPAD_LEDS  = option yes; # LED Support for Xbox360 controller 'BigX' LED
 
+      KEYBOARD_APPLESPI = whenAtLeast "5.3" module;
+
       KEXEC_FILE      = option yes;
       KEXEC_JUMP      = option yes;
 
@@ -737,6 +739,9 @@ let
     } // optionalAttrs (stdenv.hostPlatform.system == "aarch64-linux") {
       # Enables support for the Allwinner Display Engine 2.0
       SUN8I_DE2_CCU = whenAtLeast "4.13" yes;
+
+      # See comments on https://github.com/NixOS/nixpkgs/commit/9b67ea9106102d882f53d62890468071900b9647
+      CRYPTO_AEGIS128_SIMD = no;
     };
   };
 in

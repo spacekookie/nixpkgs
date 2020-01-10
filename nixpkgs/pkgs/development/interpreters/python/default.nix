@@ -29,6 +29,7 @@ with pkgs;
         isPy36 = pythonVersion == "3.6";
         isPy37 = pythonVersion == "3.7";
         isPy38 = pythonVersion == "3.8";
+        isPy39 = pythonVersion == "3.9";
         isPy2 = lib.strings.substring 0 1 pythonVersion == "2";
         isPy3 = lib.strings.substring 0 1 pythonVersion == "3";
         isPy3k = isPy3;
@@ -45,17 +46,17 @@ with pkgs;
         inherit hasDistutilsCxxPatch pythonForBuild;
   };
 
-in {
+in rec {
 
   python27 = callPackage ./cpython/2.7 {
     self = python27;
     sourceVersion = {
       major = "2";
       minor = "7";
-      patch = "16";
+      patch = "17";
       suffix = "";
     };
-    sha256 = "1mqfcqp5y8r0bfyr7ppl74n0lig45p9mc4b8adlcpvj74rhfy8pj";
+    sha256 = "0hds28cg226m8j8sr394nm9yc4gxhvlv109w0avsf2mxrlrz0hsd";
     inherit (darwin) CF configd;
     inherit passthruFun;
   };
@@ -65,10 +66,10 @@ in {
     sourceVersion = {
       major = "3";
       minor = "5";
-      patch = "7";
+      patch = "9";
       suffix = "";
     };
-    sha256 = "1p67pnp2ca5przx2s45r8m55dcn6f5hsm0l4s1zp7mglkf4r4n18";
+    sha256 = "0jdh9pvx6m6lfz2liwvvhn7vks7qrysqgwn517fkpxb77b33fjn2";
     inherit (darwin) CF configd;
     inherit passthruFun;
   };
@@ -91,10 +92,10 @@ in {
     sourceVersion = {
       major = "3";
       minor = "7";
-      patch = "4";
+      patch = "5";
       suffix = "";
     };
-    sha256 = "0gxiv5617zd7dnqm5k9r4q2188lk327nf9jznwq9j6b8p0s92ygv";
+    sha256 = "154xc6dxww21qkmphg66pfks8987a17cl3vqq5g4hv1xkzm7cnp8";
     inherit (darwin) CF configd;
     inherit passthruFun;
   };
@@ -112,19 +113,23 @@ in {
     inherit passthruFun;
   };
 
-  # Minimal versions of Python (built without optional dependencies)
-  python3Minimal = (callPackage ./cpython {
-    self = python3Minimal;
+  python39 = callPackage ./cpython {
+    self = python39;
     sourceVersion = {
       major = "3";
-      minor = "7";
-      patch = "4";
-      suffix = "";
+      minor = "9";
+      patch = "0";
+      suffix = "a1";
     };
-    sha256 = "0gxiv5617zd7dnqm5k9r4q2188lk327nf9jznwq9j6b8p0s92ygv";
+    sha256 = "02b337kvzb6ncqab21xnayh562zpz6bqzjmh35iy9l48zgpkvf1n";
     inherit (darwin) CF configd;
     inherit passthruFun;
+  };
 
+  # Minimal versions of Python (built without optional dependencies)
+  python3Minimal = (python37.override {
+    self = python3Minimal;
+    pythonForBuild = pkgs.buildPackages.python3Minimal;
     # strip down that python version as much as possible
     openssl = null;
     readline = null;
@@ -198,6 +203,11 @@ in {
     pythonVersion = "3.6";
     inherit passthruFun;
     ncurses = ncurses5;
+  };
+
+  graalpython37 = callPackage ./graalpython/default.nix {
+    self = pythonInterpreters.graalpython37;
+    inherit passthruFun;
   };
 
 })
