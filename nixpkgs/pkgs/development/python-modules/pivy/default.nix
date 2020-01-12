@@ -17,11 +17,11 @@ buildPythonPackage rec {
 
   buildInputs = with pkgs; with xorg; [
     coin3d soqt qt5.qtbase
-    libGLU_combined
+    libGLU libGL
     libXi libXext libSM libICE libX11
   ];
 
-  NIX_CFLAGS_COMPILE = [
+  NIX_CFLAGS_COMPILE = toString [
     "-I${pkgs.qt5.qtbase.dev}/include/QtCore"
     "-I${pkgs.qt5.qtbase.dev}/include/QtGui"
     "-I${pkgs.qt5.qtbase.dev}/include/QtOpenGL"

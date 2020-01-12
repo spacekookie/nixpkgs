@@ -2,7 +2,7 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-make";
-  version = "0.24.0";
+  version = "0.25.1";
 
   src =
     let
@@ -10,7 +10,7 @@ rustPlatform.buildRustPackage rec {
         owner = "sagiegurari";
         repo = pname;
         rev = version;
-        sha256 = "1sdc9qkclvv99j7ag038g8h1kjvfjxxj16xy0cqn8wvyljrqn3mc";
+        sha256 = "176qidyp9vmqs3i252r6wrhd6ayxbykwjfh7010nil3hgwjvrmb2";
       };
     in
     runCommand "cargo-make-src" {} ''
@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = stdenv.lib.optionals stdenv.isDarwin [ Security ];
 
-  cargoSha256 = "1hyc275drl5n0kcvkxd3blp77r8nck946bmlnnzym8cj50i5zbq1";
+  cargoSha256 = "1jzw24kc2i1p7775hi39db0ylbi5b4m40wnmldqvi8skcayh38ky";
 
   # Some tests fail because they need network access.
   # However, Travis ensures a proper build.
@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     description = "A Rust task runner and build tool";
     homepage = "https://github.com/sagiegurari/cargo-make";
     license = licenses.asl20;
-    maintainers = with maintainers; [ xrelkd ma27 ];
+    maintainers = with maintainers; [ xrelkd ];
     platforms = platforms.all;
   };
 }

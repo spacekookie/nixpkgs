@@ -21,7 +21,7 @@
 , libiconv, postgresql, v8, clang, sqlite, zlib, imagemagick
 , pkgconfig , ncurses, xapian, gpgme, utillinux, tzdata, icu, libffi
 , cmake, libssh2, openssl, libmysqlclient, darwin, git, perl, pcre, gecode_3, curl
-, msgpack, qt59, libsodium, snappy, libossp_uuid, lxc, libpcap, xorg, gtk2, buildRubyGem
+, msgpack, libsodium, snappy, libossp_uuid, lxc, libpcap, xorg, gtk2, buildRubyGem
 , cairo, re2, rake, gobject-introspection, gdk-pixbuf, zeromq, czmq, graphicsmagick, libcxx
 , file, libvirt, glib, vips, taglib, libopus, linux-pam, libidn, protobuf, fribidi, harfbuzz
 , bison, flex, pango, python3, patchelf, binutils, freetds, wrapGAppsHook, atk
@@ -68,11 +68,6 @@ in
   cairo-gobject = attrs: {
     nativeBuildInputs = [ pkgconfig ];
     buildInputs = [ cairo pcre xorg.libpthreadstubs xorg.libXdmcp ];
-  };
-
-  capybara-webkit = attrs: {
-    buildInputs = [ qt59.qtbase qt59.qtwebkit ] ++ stdenv.lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Cocoa ];
-    NIX_CFLAGS_COMPILE = stdenv.lib.optionalString stdenv.isDarwin "-I${libcxx}/include/c++/v1";
   };
 
   charlock_holmes = attrs: {
@@ -241,7 +236,7 @@ in
     nativeBuildInputs = [ pkgconfig ];
     buildInputs = [ openssl ];
     hardeningDisable = [ "format" ];
-    NIX_CFLAGS_COMPILE = [
+    NIX_CFLAGS_COMPILE = toString [
       "-Wno-error=stringop-overflow"
       "-Wno-error=implicit-fallthrough"
       "-Wno-error=sizeof-pointer-memaccess"
@@ -249,6 +244,7 @@ in
       "-Wno-error=class-memaccess"
       "-Wno-error=ignored-qualifiers"
       "-Wno-error=tautological-compare"
+      "-Wno-error=stringop-truncation"
     ];
     dontBuild = false;
     postPatch = ''
@@ -500,23 +496,22 @@ in
   sassc = attrs: {
     nativeBuildInputs = [ rake ];
     dontBuild = false;
-    SASS_LIBSASS_PATH = libsass;
+    SASS_LIBSASS_PATH = toString libsass;
     postPatch = ''
       substituteInPlace lib/sassc/native.rb \
         --replace 'gem_root = spec.gem_dir' 'gem_root = File.join(__dir__, "../../")'
     '';
-  } // (if stdenv.isDarwin then {
+  } // (lib.optionalAttrs stdenv.isDarwin {
     # https://github.com/NixOS/nixpkgs/issues/19098
-    buildFlags = "--disable-lto";
-  } else {});
+    buildFlags = [ "--disable-lto" ];
+  });
 
-  scrypt = attrs:
-    if stdenv.isDarwin then {
-      dontBuild = false;
-      postPatch = ''
-        sed -i -e "s/-arch i386//" Rakefile ext/scrypt/Rakefile
-      '';
-    } else {};
+  scrypt = attrs: lib.optionalAttrs stdenv.isDarwin {
+    dontBuild = false;
+    postPatch = ''
+      sed -i -e "s/-arch i386//" Rakefile ext/scrypt/Rakefile
+    '';
+  };
 
   semian = attrs: {
     buildInputs = [ openssl ];
@@ -541,7 +536,7 @@ in
     dontBuild = false;
     postPatch = ''
       substituteInPlace lib/rbreadline.rb \
-        --replace 'infocmp' '${ncurses.dev}/bin/infocmp'
+        --replace 'infocmp' '${ncurses}/bin/infocmp'
     '';
   };
 

@@ -821,6 +821,9 @@ should be used with `ignoreCollisions = true`.
 The following are setup hooks specifically for Python packages. Most of these are
 used in `buildPythonPackage`.
 
+- `eggUnpackhook` to move an egg to the correct folder so it can be installed with the `eggInstallHook`
+- `eggBuildHook` to skip building for eggs.
+- `eggInstallHook` to install eggs.
 - `flitBuildHook` to build a wheel using `flit`.
 - `pipBuildHook` to build a wheel using `pip` and PEP 517. Note a build system (e.g. `setuptools` or `flit`) should still be added as `nativeBuildInput`.
 - `pipInstallHook` to install wheels.
@@ -1034,7 +1037,10 @@ Create this `default.nix` file, together with a `requirements.txt` and simply ex
 
 ```nix
 with import <nixpkgs> {};
-with python27Packages;
+
+let
+  pythonPackages = python27Packages;
+in
 
 stdenv.mkDerivation {
   name = "impurePythonEnv";
@@ -1044,9 +1050,8 @@ stdenv.mkDerivation {
   buildInputs = [
     # these packages are required for virtualenv and pip to work:
     #
-    python27Full
-    python27Packages.virtualenv
-    python27Packages.pip
+    pythonPackages.virtualenv
+    pythonPackages.pip
     # the following packages are related to the dependencies of your python
     # project.
     # In this particular example the python modules listed in the
@@ -1059,14 +1064,13 @@ stdenv.mkDerivation {
     libxml2
     libxslt
     libzip
-    stdenv
     zlib
   ];
 
   shellHook = ''
     # set SOURCE_DATE_EPOCH so that we can use python wheels
     SOURCE_DATE_EPOCH=$(date +%s)
-    virtualenv --no-setuptools venv
+    virtualenv --python=${pythonPackages.python.interpreter} --no-setuptools venv
     export PATH=$PWD/venv/bin:$PATH
     pip install -r requirements.txt
   '';
