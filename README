@@ -1,24 +1,64 @@
-LIBKOOKIE
-=========
+                +---------------------------+
+                |                           |
+                |         LIBKOOKIE         |
+                |                           |
+                +---------------------------+
 
-This is my personal collection of nix expressions. It replaces my old
-[`kookiepkgs`][0] and [`nixcfg`][1] repositories. It contains a subtree
-of nixpkgs, overlays and modules.
-
-- `overlays/patches`: patches to upstream packages
-- `overlays/pkgs`: custom out-of-nixpkgs packages
-- `nixpkgs`: subtree of nixpkgs (follows unstable)
-- `modules`: system configuration modules
-- `roots`: available entry-points (machines)
-- `ext`: possible private extensions
-
-The `build` script can be used to build, and then switch to new system
-configurations. To invoke the `-s` option, root priviledges are
-required.
+This is my personal collection of nix expressions.
 
 
+Structure
+---------
 
----
+This repository contains a subtree of nixpkgs, a set of custum
+modules, a set of overlays for both custom and patched packages, as
+well as root configurations for each of my computers.
 
-[0]: https://git.sr.ht/~spacekookie/kookiepkgs
-[1]: https://git.sr.ht/~spacekookie/nixcfg
+libkookie replaces my old kookiepkgs, and nixcfg repos, which are no
+longer maintained or used.
+
+- overlays/patches: patches to upstream packages
+- overlays/kookie: custom out-of-nixpkgs packages
+- ovrelays/staging: packages that aren't part of upstream yet
+- nixpkgs: subtree of nixpkgs (follows unstable)
+- modules: system configuration modules
+- roots: available entry-points (machines)
+- ext: possible private extensions
+
+
+How to use
+----------
+
+You can customise a root configuration to fit your use-case more
+closely and then use the "build" scrip to build a complete system, and
+also switch to a new configuration with -s, which requires root
+privilenges.
+
+The custom modules are organised into use-cases, and computer types.
+Some things will be in the root of that directory because they are
+relevant on both my workstation computers, and servers.  Inside a
+primary module there are often sub-modules for individual components
+or even classes of components (such as graphics, or hardware).
+
+
+Contribute
+----------
+
+While this repository is also sometimes mirrored on github, the main
+tree lives on sourcehut [1].  You can send patches to me either
+directly [2], or to my public-inbox [3], which is a public mailing
+list where I post conversations on various subjects, as well as accept
+patches on.
+
+[1]: https://git.sr.ht/~spacekookie/libkookie
+[2]: kookie@spacekookie.de
+[3]: https://lists.sr.ht/~spacekookie/public-inbox
+
+
+License
+-------
+
+The nixpkgs subtree, as well as the package overlays are licensed
+under the MIT public license for the best compatibility with upstream
+NixOS.  My custom modules and root configurations are licensed under
+the GNU Public License 3.0 (or later).

@@ -14,7 +14,5 @@ self: super: {
   nodemcu-uploader = self.callPackage ./staging/nodemcu-uploader { };
   pleroma = self.callPackage ./staging/pleroma { };
   
-  emacs-ergoemacs-mode = self.callPackage ./patches/emacs-ergoemacs-mode { };
   htop = self.callPackage ./patches/htop { inherit (super) htop; };
-  neomutt = self.callPackages ./patches/neomutt { inherit (super) neomutt; };
 }
