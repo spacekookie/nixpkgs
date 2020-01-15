@@ -24,6 +24,7 @@
   };
   
   imports = [
+    ./gpg
     ./graphics
     ./hardware
     ./mail
