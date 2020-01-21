@@ -1,8 +1,13 @@
 { pkgs, config, ... }:
 
+let
+  startISync = pkgs.writeShellScriptBin "start-isync" ''
+    systemctl start isync.service
+  '';
+in
 {
   # Might want to run mbsync manually
-  environment.systemPackages = with pkgs; [ isync ];
+  environment.systemPackages = with pkgs; [ isync startISync ];
 
   # Setup spacekookie-mail user
   users.users.spacekookie-mail = {
@@ -36,6 +41,8 @@
               -type d \! -perm 770 \
               -exec ${coreutils}/bin/chmod 0770 '{}' \; \
             \)
+            ${sudo}/bin/sudo -u spacekookie \
+              ${notmuch}/bin/notmuch new
       '';
     };
 
@@ -46,4 +53,13 @@
     after = [ "network-online.target" ];
     wantedBy = [ "timers.target" ];
   };
+
+  # This sudoers rule allows anyone in the wheel group to run this
+  # particular command without a password. Make sure that 'startISync'
+  # is present in a path (environment.systemPackages above)!
+  security.sudo.extraRules = [
+    { commands = [ { command = "${startISync}/bin/start-isync";
+                     options = [ "NOPASSWD" ]; } ];
+      groups = [ "wheel" ];  }
+  ];
 }
