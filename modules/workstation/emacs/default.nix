@@ -33,6 +33,7 @@ let
       undo-tree
       visual-fill-column
       yasnippet
+      which-key
     ]));
 in
 {

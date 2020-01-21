@@ -4,6 +4,22 @@
 (require 'direnv)
 (direnv-mode)
 
+(require 'magit)
+
+(require 'org)
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+
+(defun org-open-at-point-in-current-window ()
+  (interactive)
+  (let ((org-link-frame-setup (quote
+                               ((vm . vm-visit-folder)
+                                (vm-imap . vm-visit-imap-folder)
+                                (gnus . gnus)
+                                (file . find-file)
+                                (wl . wl)))
+                              ))
+    (org-open-at-point)))
+
 ;; More sane line-number behaviour
 (setq display-line-numbers-grow-only 1)
 (setq display-line-numbers-width-start 1)
@@ -15,14 +31,43 @@
 (defvaralias 'c-basic-offset 'tab-width)
 (defvaralias 'cperl-indent-level 'tab-width)
 
-;;disable splash screen and startup message
-(setq inhibit-startup-message 1) 
+;; disable splash screen and startup message
+(setq inhibit-startup-message 1)
 (setq initial-scratch-message nil)
 
 (autoload 'notmuch "notmuch" "notmuch mail" t)
 (setq notmuch-search-oldest-first nil)
+(setq mml-secure-openpgp-encrypt-to-self t)
+(setq mml-secure-smime-encrypt-to-self t)
 
-;; Change the swap/autosave directory
+(add-hook 'message-setup-hook 'mml-secure-message-sign-pgpmime)
+(add-hook 'notmuch-hello-refresh-hook
+          (lambda ()
+            (if (and (eq (point) (point-min))
+                     (search-forward "Saved searches:" nil t))
+                (progn
+                  (forward-line)
+                  (widget-forward 1))
+              (if (eq (widget-type (widget-at)) 'editable-field)
+                  (beginning-of-line)))))
+
+(define-transient-command notmuch-apply-email ()
+  "Apply patches received by email."
+  ["Arguments"
+   ("-s" "Sign off on patches" ("-s" "--signoff"))
+   ("-r" "Set this reject thingy" ("-r" "--reject"))
+   ("-o" "Skip cover letter automatically" ("-o" "--skip-coverletter"))]
+  ["Method"
+   ("p" "patchset" notmuch--apply-email)])
+
+(defun notmuch--apply-email ()
+  "Apply a patch directly from a notmuch frame."
+  (interactive)
+  (let ((repository (read-directory-name "Select repository")))
+    (cd repository)
+    (notmuch-show-pipe-message t "git am -3 -")))
+
+;; change the swap/autosave directory
 (let ((backup-dir (concat user-emacs-directory "backups")))
   (make-directory backup-dir t)
   (setq backup-directory-alist (list (cons "." backup-dir)))
@@ -219,3 +264,8 @@
 (global-set-key (kbd "C-t") 'smex)
 (global-set-key (kbd "C-M-<up>") 'move-section-up)
 (global-set-key (kbd "C-M-<down>") 'move-section-down)
+
+;;; Org mode bindings replicated here to make it easier for me
+(define-key org-mode-map "\C-c\C-o" 'org-open-at-point-in-current-window)
+(define-key org-mode-map "\C-S-<up>" nil)
+(define-key org-mode-map "\C-S-<down>" nil)
