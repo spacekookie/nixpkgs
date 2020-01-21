@@ -1,5 +1,14 @@
 #!/bin/sh
 
-drvs="$(nix-instantiate "$@")"
+HOST=$(hostname)
+DIR=$(realpath $(dirname $0))
+OUT=$(mktemp -du)
+ROOT="$DIR/roots/$HOST.nix"
+
+drvs="$(nix-instantiate -A system '<nixpkgs/nixos>' \
+                        -I nixos-config=$ROOT \
+                        -I nixpkgs=$DIR/nixpkgs \
+                        -I nixpkgs-overlays=$DIR/overlays \
+                        -I home-manager=$DIR/home-manager)"
 nix-copy-closure -s --to hyperion $drvs
 nix-copy-closure --from hyperion $(ssh hyperion nix-build $drvs)
