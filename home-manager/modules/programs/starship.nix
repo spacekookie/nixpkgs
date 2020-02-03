@@ -7,28 +7,32 @@ let
   cfg = config.programs.starship;
 
   configFile = config:
-    pkgs.runCommand "config.toml"
-      {
-        buildInputs = [ pkgs.remarshal ];
-        preferLocalBuild = true;
-        allowSubstitutes = false;
-      }
-      ''
-        remarshal -if json -of toml \
-          < ${pkgs.writeText "config.json" (builtins.toJSON config)} \
-          > $out
-      '';
-in
+    pkgs.runCommand "config.toml" {
+      buildInputs = [ pkgs.remarshal ];
+      preferLocalBuild = true;
+      allowSubstitutes = false;
+    } ''
+      remarshal -if json -of toml \
+        < ${pkgs.writeText "config.json" (builtins.toJSON config)} \
+        > $out
+    '';
 
-{
+in {
   meta.maintainers = [ maintainers.marsam ];
 
   options.programs.starship = {
     enable = mkEnableOption "starship";
 
+    package = mkOption {
+      type = types.package;
+      default = pkgs.starship;
+      defaultText = literalExample "pkgs.starship";
+      description = "The package to use for the starship binary.";
+    };
+
     settings = mkOption {
       type = types.attrs;
-      default = {};
+      default = { };
       description = ''
         Configuration written to
         <filename>~/.config/starship.toml</filename>.
@@ -64,27 +68,26 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ pkgs.starship ];
+    home.packages = [ cfg.package ];
 
-    xdg.configFile."starship.toml" = mkIf (cfg.settings != {}) {
-      source = configFile cfg.settings;
-    };
+    xdg.configFile."starship.toml" =
+      mkIf (cfg.settings != { }) { source = configFile cfg.settings; };
 
     programs.bash.initExtra = mkIf cfg.enableBashIntegration ''
       if [[ -z $INSIDE_EMACS ]]; then
-        eval "$(${pkgs.starship}/bin/starship init bash)"
+        eval "$(${cfg.package}/bin/starship init bash)"
       fi
     '';
 
     programs.zsh.initExtra = mkIf cfg.enableZshIntegration ''
       if [ -z "$INSIDE_EMACS" ]; then
-        eval "$(${pkgs.starship}/bin/starship init zsh)"
+        eval "$(${cfg.package}/bin/starship init zsh)"
       fi
     '';
 
     programs.fish.shellInit = mkIf cfg.enableFishIntegration ''
       if test -z "$INSIDE_EMACS"
-        eval (${pkgs.starship}/bin/starship init fish)
+        eval (${cfg.package}/bin/starship init fish)
       end
     '';
   };

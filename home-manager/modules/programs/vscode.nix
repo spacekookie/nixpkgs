@@ -11,7 +11,13 @@ let
   configDir = {
     "vscode" = "Code";
     "vscode-insiders" = "Code - Insiders";
-    "vscodium" = "Codium";
+    "vscodium" = "VSCodium";
+  }.${vscodePname};
+
+  extensionDir = {
+    "vscode" = "vscode";
+    "vscode-insiders" = "vscode-insiders";
+    "vscodium" = "vscode-oss";
   }.${vscodePname};
 
   configFilePath =
@@ -21,7 +27,7 @@ let
       "${config.xdg.configHome}/${configDir}/User/settings.json";
 
   # TODO: On Darwin where are the extensions?
-  extensionPath = ".${vscodePname}/extensions";
+  extensionPath = ".${extensionDir}/extensions";
 in
 
 {
@@ -71,18 +77,24 @@ in
     # Adapted from https://discourse.nixos.org/t/vscode-extensions-setup/1801/2
     home.file =
       let
-        toPaths = p:
-          # Links every dir in p to the extension path.
-          mapAttrsToList (k: v:
-            {
-              "${extensionPath}/${k}".source = "${p}/${k}";
-            }) (builtins.readDir p);
+        toPaths = path:
+          let
+            p = "${path}/share/vscode/extensions";
+          in
+            # Links every dir in p to the extension path.
+            mapAttrsToList (k: v:
+              {
+                "${extensionPath}/${k}".source = "${p}/${k}";
+              }) (builtins.readDir p);
         toSymlink = concatMap toPaths cfg.extensions;
       in
         foldr
           (a: b: a // b)
           {
-            "${configFilePath}".text = builtins.toJSON cfg.userSettings;
+            "${configFilePath}" =
+              mkIf (cfg.userSettings != {}) {
+                text = builtins.toJSON cfg.userSettings;
+              };
           }
           toSymlink;
   };
