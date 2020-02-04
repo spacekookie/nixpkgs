@@ -9,6 +9,7 @@
   home.packages = with pkgs; [
     dino
     quasselClient
+    riot-desktop
     signal-desktop
     tdesktop
     weechat
