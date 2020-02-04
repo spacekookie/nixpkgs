@@ -9,13 +9,13 @@
   services.xserver = {
     enable = true;
     desktopManager = {
-      default = "xfce";
       xfce = {
         enable = true;
         noDesktop = true;
         enableXfwm = false;
       };
     };
+    displayManager.defaultSession = "xfce";
     windowManager.i3.enable = true;
 
     videoDrivers = [ "intel" ];

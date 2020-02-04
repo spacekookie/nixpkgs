@@ -8,7 +8,7 @@
 { pkgs, config, ... }:
 
 {
-  i18n.consoleUseXkbConfig = true;
+  console.useXkbConfig = true;
 
   services.xserver = {
     layout = "us";
