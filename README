@@ -10,7 +10,7 @@ This is my personal collection of nix expressions.
 Structure
 ---------
 
-This repository contains a subtree of nixpkgs, a set of custum
+This repository contains a subtree of nixpkgs, a set of custom
 modules, a set of overlays for both custom and patched packages, as
 well as root configurations for each of my computers.
 
