@@ -12,7 +12,7 @@ in
     home = mkDefault "/home";
     uid = mkDefault 1000;
     group = "spacekookie";
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "dialout" ];
     shell = lib.mkDefault pkgs.fish;
   };
 }
