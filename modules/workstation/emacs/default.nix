@@ -28,6 +28,7 @@ let
       monokai-theme
       notmuch
       org
+      scad-mode
       smex
       sublimity
       undo-tree

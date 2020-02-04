@@ -83,6 +83,9 @@
 (add-hook 'c-mode-hook #'lsp)
 (add-hook 'c++-mode-hook #'lsp)
 
+;; OpenSCAD mode
+(add-to-list 'auto-mode-alist '("\\.scad$" . scad-mode))
+
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -115,6 +118,8 @@
 (push 'company-lsp company-backends)
 (setq lsp-ui-doc-max-width 45)
 (setq lsp-ui-doc-max-height 10)
+
+(add-hook 'after-init-hook 'global-company-mode)
 
 ;; Turns out I'm a huge dork
 (setq emacs-anchor default-directory)
