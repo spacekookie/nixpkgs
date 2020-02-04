@@ -34,5 +34,6 @@
     ./sound
     ./syncthing
     ./time
+    ./writing
   ];
 }
