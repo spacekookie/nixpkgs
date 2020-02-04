@@ -9,7 +9,9 @@
     # Use iosevka as default font
     fonts = [ "iosevka-term-ss09 10" ];
 
-    keybindings = {
+    keybindings = with pkgs; let
+      gnome-screenshot = "${gnome3.gnome-screenshot}/bin/gnome-screenshot";
+    in {
 
       # Start a terminal
       "${modifier}+Return" = "exec ${pkgs.kitty}/bin/kitty";
@@ -75,6 +77,9 @@
       "${modifier}+4" = "layout tabbed";
       "${modifier}+5" = "layout stacked";
 
+      # Screenshot shortcut
+      "${modifier}+9" = "exec ${gnome-screenshot} -a";
+      
       # Do I even use this?!
       "${modifier}+Shift+space" = "floating toggle";
       "${modifier}+space" = "focus mode_toggle";
