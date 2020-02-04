@@ -15,6 +15,7 @@
 
 {
   imports = [
+    ./bluetooth
     ./xkblayout
     ./yubikey
   ];
