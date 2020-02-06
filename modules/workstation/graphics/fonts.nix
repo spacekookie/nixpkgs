@@ -17,6 +17,11 @@
     google-fonts
     inconsolata
     iosevka
-    twemoji-color-font
+    twitter-color-emoji
   ];
+
+  fonts.fontconfig.defaultFonts = {
+    emoji = [ "Twitter Color Emoji" ];
+    monospace = [ "Iosevka" ];
+  };
 }
