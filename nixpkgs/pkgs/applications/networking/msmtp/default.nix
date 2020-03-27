@@ -1,5 +1,5 @@
 { stdenv, lib, fetchurl, autoreconfHook, pkgconfig
-, netcat-gnu, gnutls, gsasl, libidn2, Security
+, netcat-gnu, gnutls, gsasl, libidn2, Security, texinfo
 , withKeyring ? true, libsecret ? null
 , systemd ? null }:
 
@@ -20,7 +20,7 @@ in stdenv.mkDerivation rec {
     ./paths.patch
   ];
 
-  buildInputs = [ gnutls gsasl libidn2 ]
+  buildInputs = [ gnutls gsasl libidn2 texinfo ]
     ++ stdenv.lib.optional stdenv.isDarwin Security
     ++ stdenv.lib.optional withKeyring libsecret;
 
