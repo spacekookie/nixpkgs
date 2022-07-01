@@ -9,14 +9,14 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "ratman";
-  version = "0.3.1";
+  version = "0.4.0";
 
   src = fetchurl {
     url = "https://git.irde.st/we/irdest/-/archive/${pname}-${version}/irdest-${pname}-${version}.tar.gz";
-    sha256 = "0x1wvhsmf7m55j9hmirkz75qivsg33xab1sil6nbv8fby428fpq6";
+    sha256 = "tTWPhHqexDELBgseP7O3pbW38seSzhFvo5eVvw9gQ7E=";
   };
 
-  cargoSha256 = "1dkfyy1z34qaavyd3f20hrrrb3kjsdfkyzd535xlds9wivgchmd0";
+  cargoSha256 = "Nsux0QblBtzlhLEgfKYvkQrOz8+oVd2pqT3CL8TnQEc=";
 
   nativeBuildInputs = [ protobuf pkg-config installShellFiles ];
 
